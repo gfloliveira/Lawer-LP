@@ -1507,6 +1507,334 @@
             .area-inner  { padding: 20px 20px; gap: 12px; }
             .area-desc   { padding: 0 20px 20px 20px; }
         }
+
+        /* ================================================================
+           SEÇÃO 04 — PUBLICAÇÕES & CASOS
+           ================================================================ */
+        #publicacoes {
+            position: relative;
+            background: var(--color-bg-mid);
+            overflow: clip;
+        }
+
+        /* Header — flui normalmente antes do pin */
+        .pub-header {
+            padding: 140px 158px 80px;
+            display: grid;
+            grid-template-columns: 54% 1fr;
+            align-items: end;
+            gap: 0 80px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Eyebrow — mesma linguagem */
+        .pub-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 48px;
+        }
+
+        .pub-eyebrow-rule {
+            display: block;
+            width: 44px; height: 1px;
+            background: var(--color-accent);
+            flex-shrink: 0;
+            transform: scaleX(0);
+            transform-origin: 0 50%;
+        }
+
+        .pub-eyebrow-text {
+            font-size: 8.5px;
+            font-weight: 500;
+            letter-spacing: 0.46em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(100%);
+        }
+
+        /* Título — mask reveal */
+        .pub-title {
+            font-family: var(--font-serif);
+            font-size: clamp(40px, 4.6vw, 70px);
+            font-weight: 300;
+            line-height: 1.06;
+            letter-spacing: -0.01em;
+            color: var(--color-text);
+        }
+
+        .p-mask-wrap {
+            display: block;
+            overflow: hidden;
+            padding-bottom: 0.05em;
+            margin-bottom: -0.03em;
+        }
+
+        .p-mask-inner {
+            display: inline-block;
+            transform: translateY(108%);
+            will-change: transform;
+        }
+
+        .pub-title em {
+            font-style: italic;
+            color: var(--color-accent);
+        }
+
+        /* Coluna direita */
+        .pub-header-right { padding-bottom: 4px; }
+
+        .pub-sub {
+            font-size: 13px;
+            line-height: 1.95;
+            letter-spacing: 0.025em;
+            color: var(--color-text-sub);
+            max-width: 380px;
+            opacity: 0;
+            transform: translateY(22px);
+        }
+
+        /* ---- Zona de pin com scroll horizontal ---- */
+        .pub-track-zone {
+            position: relative;
+            height: 100vh;
+            height: 100svh;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        /* Track — container horizontal */
+        .pub-track {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            gap: 24px;
+            padding: 0 158px;
+            height: 100%;
+            width: max-content;
+            will-change: transform;
+        }
+
+        /* ---- Card ---- */
+        .pub-card {
+            flex: 0 0 390px;
+            height: clamp(420px, 64vh, 540px);
+            height: clamp(420px, 64svh, 540px);
+            background: var(--color-bg);
+            border: 1px solid var(--color-primary-ghost);
+            padding: 40px 40px 44px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition:
+                border-color 0.45s var(--ease-smooth),
+                transform    0.45s var(--ease-expo-out);
+        }
+
+        /* Tint dourado no hover */
+        .pub-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(212, 175, 55, 0.06) 0%,
+                transparent 65%
+            );
+            opacity: 0;
+            transition: opacity 0.55s;
+            pointer-events: none;
+        }
+
+        .pub-card:hover {
+            border-color: var(--color-primary-dim);
+            transform: translateY(-8px);
+        }
+        .pub-card:hover::before { opacity: 1; }
+
+        /* Número decorativo de fundo */
+        .pub-card-n {
+            position: absolute;
+            right: 22px; bottom: 32px;
+            font-family: var(--font-serif);
+            font-size: 96px;
+            font-weight: 600;
+            line-height: 1;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(212, 175, 55, 0.055);
+            user-select: none;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Meta topo — categoria + ano */
+        .pub-card-meta {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .pub-card-cat {
+            font-size: 7.5px;
+            font-weight: 500;
+            letter-spacing: 0.32em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            line-height: 1.6;
+        }
+
+        .pub-card-year {
+            font-size: 7.5px;
+            font-weight: 400;
+            letter-spacing: 0.22em;
+            color: var(--color-text-sub);
+            flex-shrink: 0;
+        }
+
+        /* Corpo inferior */
+        .pub-card-body {
+            position: relative;
+            z-index: 1;
+        }
+
+        .pub-card-title {
+            font-family: var(--font-serif);
+            font-size: clamp(19px, 1.7vw, 26px);
+            font-weight: 300;
+            line-height: 1.26;
+            letter-spacing: -0.01em;
+            color: var(--color-text);
+            margin-bottom: 22px;
+        }
+
+        .pub-card-rule {
+            width: 34px; height: 1px;
+            background: var(--color-primary-dim);
+            margin-bottom: 18px;
+            transition: width 0.45s var(--ease-expo-out);
+        }
+        .pub-card:hover .pub-card-rule { width: 52px; }
+
+        .pub-card-excerpt {
+            font-size: 11.5px;
+            line-height: 1.85;
+            letter-spacing: 0.015em;
+            color: var(--color-text-sub);
+            margin-bottom: 26px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Link — mesma linguagem do .btn-ghost */
+        .pub-card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 7.5px;
+            font-weight: 600;
+            letter-spacing: 0.34em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            text-decoration: none;
+            transition: gap 0.35s var(--ease-expo-out);
+        }
+        .pub-card:hover .pub-card-link { gap: 18px; }
+
+        .pub-card-link-arr {
+            display: flex;
+            align-items: center;
+        }
+        .pub-card-link-arr::before {
+            content: '';
+            display: block;
+            width: 16px; height: 1px;
+            background: currentColor;
+            transition: width 0.35s var(--ease-expo-out);
+        }
+        .pub-card-link-arr::after {
+            content: '';
+            display: block;
+            width: 5px; height: 5px;
+            border-right: 1px solid currentColor;
+            border-top: 1px solid currentColor;
+            transform: rotate(45deg) translate(-3px, 3px);
+        }
+        .pub-card:hover .pub-card-link-arr::before { width: 22px; }
+
+        /* Barra de progresso */
+        .pub-progress {
+            position: absolute;
+            bottom: 36px;
+            left: 158px; right: 158px;
+            height: 1px;
+            background: var(--color-primary-ghost);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .pub-progress-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--color-accent);
+        }
+
+        /* ---- Tablet + touch (≤1023px): grid 2 colunas, sem pin ---- */
+        @media (max-width: 1023px) {
+            .pub-track-zone { height: auto; overflow: visible; }
+            .pub-track {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+                padding: 40px 48px 72px;
+                width: auto;
+                height: auto;
+                align-items: start;
+            }
+            .pub-card { flex: none; width: auto; height: auto; min-height: 400px; }
+            .pub-progress { display: none; }
+        }
+
+        /* ---- Tablet header ---- */
+        @media (min-width: 769px) and (max-width: 1199px) {
+            .pub-header { padding: 100px 48px 64px; gap: 0 60px; }
+            .pub-title  { font-size: clamp(34px, 4vw, 54px); }
+            .pub-sub    { font-size: 12px; max-width: 100%; }
+        }
+
+        /* ---- Mobile ---- */
+        @media (max-width: 768px) {
+            .pub-header {
+                grid-template-columns: 1fr;
+                padding: 72px 24px 52px;
+                gap: 36px 0;
+                align-items: start;
+            }
+            .pub-eyebrow  { margin-bottom: 32px; }
+            .pub-title    { font-size: clamp(32px, 8.5vw, 50px); }
+            .pub-sub      { font-size: 12.5px; max-width: 100%; }
+
+            .pub-track    { grid-template-columns: 1fr; padding: 0 24px 72px; gap: 16px; }
+            .pub-card     { min-height: 320px; }
+            .pub-card-title { font-size: clamp(18px, 5.2vw, 24px); }
+            .pub-card-excerpt { -webkit-line-clamp: 4; }
+        }
+
+        @media (max-width: 380px) {
+            .pub-header { padding: 64px 20px 44px; }
+            .pub-track  { padding: 0 20px 64px; gap: 14px; }
+            .pub-card   { padding: 32px 28px 36px; }
+        }
     </style>
 </head>
 
@@ -1918,6 +2246,141 @@
 </section><!-- /#areas -->
 
 <!-- ==========================================================
+     SEÇÃO 04 — PUBLICAÇÕES & CASOS
+     ========================================================== -->
+<section id="publicacoes" aria-label="Publicações e Casos">
+
+    <span class="s-num" aria-hidden="true">04</span>
+
+    <!-- Header — anima no scroll, não faz parte do pin -->
+    <div class="pub-header">
+
+        <div class="pub-header-left">
+            <div class="pub-eyebrow">
+                <span class="pub-eyebrow-rule"></span>
+                <span class="pub-eyebrow-text">Publicações &amp; Casos · 2023–2024</span>
+            </div>
+
+            <h2 class="pub-title"
+                aria-label="Inteligência em Cada Decisão.">
+                <span class="p-mask-wrap"><span class="p-mask-inner">Inteligência</span></span>
+                <span class="p-mask-wrap"><span class="p-mask-inner">em Cada</span></span>
+                <span class="p-mask-wrap"><span class="p-mask-inner"><em>Decisão.</em></span></span>
+            </h2>
+        </div>
+
+        <div class="pub-header-right">
+            <p class="pub-sub">
+                Casos selecionados e publicações que evidenciam a
+                profundidade analítica com que tratamos cada mandato —
+                e o nível de resultado que nossos clientes esperam.
+            </p>
+        </div>
+
+    </div><!-- /.pub-header -->
+
+    <!-- Zona de pin: scroll horizontal no desktop, grid no mobile -->
+    <div class="pub-track-zone" id="pub-track-zone">
+
+        <div class="pub-track" id="pub-track">
+
+            <article class="pub-card">
+                <span class="pub-card-n" aria-hidden="true">01</span>
+                <div class="pub-card-meta">
+                    <span class="pub-card-cat">Direito Tributário · Caso</span>
+                    <span class="pub-card-year">2024</span>
+                </div>
+                <div class="pub-card-body">
+                    <h3 class="pub-card-title">Recuperação de R$ 8,2M em Créditos PIS/COFINS</h3>
+                    <div class="pub-card-rule" aria-hidden="true"></div>
+                    <p class="pub-card-excerpt">Vitória no CARF em processo de compensação de créditos para grupo industrial de médio porte, revertendo autuação de seis anos e recuperando o equivalente integral do investimento fiscalizado.</p>
+                    <a href="#contato" class="pub-card-link">
+                        <span>Ver Detalhes</span>
+                        <span class="pub-card-link-arr" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </article>
+
+            <article class="pub-card">
+                <span class="pub-card-n" aria-hidden="true">02</span>
+                <div class="pub-card-meta">
+                    <span class="pub-card-cat">Criminal de Alto Padrão · Caso</span>
+                    <span class="pub-card-year">2023</span>
+                </div>
+                <div class="pub-card-body">
+                    <h3 class="pub-card-title">Absolvição em Processo de Lavagem de Capitais</h3>
+                    <div class="pub-card-rule" aria-hidden="true"></div>
+                    <p class="pub-card-excerpt">Defesa bem-sucedida em ação penal de alta complexidade envolvendo câmbio e transferências internacionais. Absolvição em 2ª instância com dissolução integral das medidas cautelares.</p>
+                    <a href="#contato" class="pub-card-link">
+                        <span>Ver Detalhes</span>
+                        <span class="pub-card-link-arr" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </article>
+
+            <article class="pub-card">
+                <span class="pub-card-n" aria-hidden="true">03</span>
+                <div class="pub-card-meta">
+                    <span class="pub-card-cat">Direito Tributário · Artigo</span>
+                    <span class="pub-card-year">Jul. 2024</span>
+                </div>
+                <div class="pub-card-body">
+                    <h3 class="pub-card-title">CARF 2024: Novas Teses e Seus Impactos no Planejamento</h3>
+                    <div class="pub-card-rule" aria-hidden="true"></div>
+                    <p class="pub-card-excerpt">Análise das principais decisões do Conselho Administrativo de Recursos Fiscais no primeiro semestre de 2024 e os reflexos diretos para o planejamento tributário preventivo de grandes empresas.</p>
+                    <a href="#contato" class="pub-card-link">
+                        <span>Ler Artigo</span>
+                        <span class="pub-card-link-arr" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </article>
+
+            <article class="pub-card">
+                <span class="pub-card-n" aria-hidden="true">04</span>
+                <div class="pub-card-meta">
+                    <span class="pub-card-cat">Fusões &amp; Aquisições · Caso</span>
+                    <span class="pub-card-year">2023</span>
+                </div>
+                <div class="pub-card-body">
+                    <h3 class="pub-card-title">Aquisição Cross-Border no Setor de Tecnologia — R$ 120M</h3>
+                    <div class="pub-card-rule" aria-hidden="true"></div>
+                    <p class="pub-card-excerpt">Assessoria jurídica completa em operação M&amp;A internacional para grupo com presença em quatro países da América Latina, do due diligence à assinatura em 90 dias.</p>
+                    <a href="#contato" class="pub-card-link">
+                        <span>Ver Detalhes</span>
+                        <span class="pub-card-link-arr" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </article>
+
+            <article class="pub-card">
+                <span class="pub-card-n" aria-hidden="true">05</span>
+                <div class="pub-card-meta">
+                    <span class="pub-card-cat">Compliance · Artigo</span>
+                    <span class="pub-card-year">Mar. 2024</span>
+                </div>
+                <div class="pub-card-body">
+                    <h3 class="pub-card-title">Os Novos Pilares do Compliance Anticorrupção no Brasil</h3>
+                    <div class="pub-card-rule" aria-hidden="true"></div>
+                    <p class="pub-card-excerpt">Estudo sobre as transformações estruturais da Lei 12.846 após as reformas de 2023, com guia prático para adequação e auditoria de programas de integridade corporativa.</p>
+                    <a href="#contato" class="pub-card-link">
+                        <span>Ler Artigo</span>
+                        <span class="pub-card-link-arr" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </article>
+
+        </div><!-- /.pub-track -->
+
+        <!-- Barra de progresso (desktop) -->
+        <div class="pub-progress" aria-hidden="true">
+            <div class="pub-progress-fill" id="pub-progress-fill"></div>
+        </div>
+
+    </div><!-- /.pub-track-zone -->
+
+</section><!-- /#publicacoes -->
+
+<!-- ==========================================================
      SCRIPTS
      ========================================================== -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -2268,6 +2731,70 @@
                 });
             }
         });
+
+    })();
+
+    /* ============================================================
+       SEÇÃO 04 — PUBLICAÇÕES: horizontal scroll + ScrollTrigger pin
+       ============================================================ */
+    (function initPublicacoes() {
+
+        /* Header — reveals ao scroll */
+        const pubEyeTL = gsap.timeline({
+            scrollTrigger: { trigger: '.pub-eyebrow', start: 'top 82%' }
+        });
+        pubEyeTL
+            .to('.pub-eyebrow-rule', { scaleX: 1, duration: 0.7, ease: 'power3.inOut' })
+            .to('.pub-eyebrow-text', { y: 0, opacity: 1, duration: 0.65 }, '-=0.3');
+
+        gsap.to('.p-mask-inner', {
+            y: '0%',
+            duration: 1.05,
+            stagger: 0.10,
+            ease: 'power4.out',
+            scrollTrigger: { trigger: '.pub-title', start: 'top 80%' }
+        });
+
+        gsap.to('.pub-sub', {
+            opacity: 1, y: 0,
+            duration: 0.88,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: '.pub-sub', start: 'top 82%' }
+        });
+
+        /* Scroll horizontal — apenas desktop com mouse (≥1024px) */
+        const zone  = document.getElementById('pub-track-zone');
+        const track = document.getElementById('pub-track');
+        const fill  = document.getElementById('pub-progress-fill');
+
+        if (!isTouch && window.innerWidth >= 1024) {
+            gsap.to(track, {
+                x: () => -(track.scrollWidth - window.innerWidth),
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: zone,
+                    pin: true,
+                    start: 'top top',
+                    end: () => '+=' + (track.scrollWidth - window.innerWidth),
+                    scrub: 1.2,
+                    anticipatePin: 1,
+                    invalidateOnRefresh: true,
+                    onUpdate: self => {
+                        fill.style.width = (self.progress * 100) + '%';
+                    }
+                }
+            });
+        } else {
+            /* Touch / tablet / mobile — fade-up escalonado */
+            gsap.from('.pub-card', {
+                y: 40,
+                opacity: 0,
+                duration: 0.75,
+                stagger: 0.10,
+                ease: 'power3.out',
+                scrollTrigger: { trigger: '.pub-track', start: 'top 84%' }
+            });
+        }
 
     })();
 
