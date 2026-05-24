@@ -2525,6 +2525,27 @@
 </section><!-- /#publicacoes -->
 
 <!-- ==========================================================
+     MODAL — Publicações & Casos
+     ========================================================== -->
+<div id="pub-modal" role="dialog" aria-modal="true" aria-label="Detalhes do caso">
+    <div class="pub-modal-bd" id="pub-modal-bd"></div>
+    <div class="pub-modal-card" id="pub-modal-card">
+        <div class="pub-modal-header">
+            <div class="pub-modal-meta">
+                <span class="pub-modal-cat"  id="pub-modal-cat"></span>
+                <span class="pub-modal-year" id="pub-modal-year"></span>
+            </div>
+            <button class="pub-modal-close" id="pub-modal-close" aria-label="Fechar">
+                <span></span><span></span>
+            </button>
+        </div>
+        <h3 class="pub-modal-title" id="pub-modal-title"></h3>
+        <div class="pub-modal-rule"  aria-hidden="true"></div>
+        <p  class="pub-modal-text"  id="pub-modal-text"></p>
+    </div>
+</div>
+
+<!-- ==========================================================
      SCRIPTS
      ========================================================== -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -3090,27 +3111,6 @@
         if (e.key === 'Escape' && mobileOpen) closeNav();
     });
 </script>
-
-<!-- ==========================================================
-     MODAL — Publicações & Casos
-     ========================================================== -->
-<div id="pub-modal" role="dialog" aria-modal="true" aria-label="Detalhes do caso">
-    <div class="pub-modal-bd" id="pub-modal-bd"></div>
-    <div class="pub-modal-card" id="pub-modal-card">
-        <div class="pub-modal-header">
-            <div class="pub-modal-meta">
-                <span class="pub-modal-cat"  id="pub-modal-cat"></span>
-                <span class="pub-modal-year" id="pub-modal-year"></span>
-            </div>
-            <button class="pub-modal-close" id="pub-modal-close" aria-label="Fechar">
-                <span></span><span></span>
-            </button>
-        </div>
-        <h3 class="pub-modal-title" id="pub-modal-title"></h3>
-        <div class="pub-modal-rule"  aria-hidden="true"></div>
-        <p  class="pub-modal-text"  id="pub-modal-text"></p>
-    </div>
-</div>
 
 </body>
 </html>
