@@ -8,39 +8,27 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Cormorant Garamond: elegância serifada institucional | Montserrat: clareza geométrica -->
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <style>
         /* ================================================================
-           DESIGN TOKENS — ponto único de customização da paleta e tipografia
+           DESIGN TOKENS
            ================================================================ */
         :root {
-            /* Fundos */
             --color-bg:             #0B1320;
             --color-bg-deep:        #070E1C;
             --color-bg-mid:         #0F1A2E;
-
-            /* Identidade de marca */
-            --color-primary:        #D4AF37;   /* Ouro Champagne */
+            --color-primary:        #D4AF37;
             --color-primary-glow:   rgba(212, 175, 55, 0.07);
             --color-primary-dim:    rgba(212, 175, 55, 0.28);
             --color-primary-ghost:  rgba(212, 175, 55, 0.08);
-
-            /* Texto */
             --color-text:           #EBE7DD;
             --color-text-sub:       rgba(235, 231, 221, 0.48);
             --color-text-ghost:     rgba(235, 231, 221, 0.14);
-
-            /* Aliases semânticos */
             --color-accent:         var(--color-primary);
             --color-border:         var(--color-primary-dim);
-
-            /* Tipografia */
             --font-serif:           'Cormorant Garamond', Georgia, 'Times New Roman', serif;
             --font-sans:            'Montserrat', 'Helvetica Neue', Arial, sans-serif;
-
-            /* Curvas de animação */
             --ease-expo-out:        cubic-bezier(0.16, 1, 0.3, 1);
             --ease-expo-io:         cubic-bezier(0.76, 0, 0.24, 1);
             --ease-smooth:          cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -65,8 +53,10 @@
             cursor: none;
         }
 
+        body.nav-open { overflow: hidden; }
+
         /* ================================================================
-           CURSOR CUSTOMIZADO
+           CURSOR (desktop/mouse only)
            ================================================================ */
         .c-dot {
             position: fixed;
@@ -107,7 +97,7 @@
 
         .loader-brand {
             font-family: var(--font-serif);
-            font-size: 20px;
+            font-size: clamp(16px, 3vw, 20px);
             font-weight: 300;
             letter-spacing: 0.65em;
             text-transform: uppercase;
@@ -117,7 +107,7 @@
         }
 
         .loader-track {
-            width: 240px;
+            width: min(240px, 60vw);
             height: 1px;
             background: rgba(212, 175, 55, 0.12);
             position: relative;
@@ -140,7 +130,7 @@
         }
 
         /* ================================================================
-           NAVEGAÇÃO
+           NAVEGAÇÃO — Desktop
            ================================================================ */
         #nav {
             position: fixed;
@@ -165,6 +155,8 @@
             text-transform: uppercase;
             color: var(--color-text);
             text-decoration: none;
+            position: relative;
+            z-index: 201;
         }
 
         .nav-logo b { color: var(--color-accent); }
@@ -220,6 +212,96 @@
 
         .nav-tel:hover { border-color: var(--color-accent); }
 
+        /* ----------------------------------------------------------------
+           Hamburguer — visível apenas em mobile
+           ---------------------------------------------------------------- */
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            width: 44px;
+            height: 44px;
+            background: transparent;
+            border: 1px solid var(--color-border);
+            cursor: pointer;
+            padding: 14px 11px;
+            position: relative;
+            z-index: 201;
+            flex-shrink: 0;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 22px;
+            height: 1px;
+            background: var(--color-accent);
+            transition: transform 0.42s var(--ease-expo-io), opacity 0.3s;
+            transform-origin: center;
+        }
+
+        .nav-toggle.is-open span:nth-child(1) { transform: translateY(6px)  rotate(45deg); }
+        .nav-toggle.is-open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .nav-toggle.is-open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+        /* ================================================================
+           MENU MÓVEL — overlay fullscreen
+           ================================================================ */
+        #nav-mobile {
+            position: fixed;
+            inset: 0;
+            z-index: 150;
+            background: var(--color-bg-deep);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+        }
+
+        .nav-mobile-border {
+            position: absolute;
+            bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 1px; height: 35%;
+            background: linear-gradient(to bottom, var(--color-primary-dim), transparent);
+        }
+
+        .nav-mobile-links {
+            list-style: none;
+            text-align: center;
+            width: 100%;
+        }
+
+        .nav-mobile-links li { overflow: hidden; }
+
+        .nav-mobile-links a {
+            display: block;
+            padding: 20px 0;
+            font-family: var(--font-serif);
+            font-size: clamp(32px, 7vw, 52px);
+            font-weight: 300;
+            letter-spacing: 0.04em;
+            color: var(--color-text);
+            text-decoration: none;
+            border-bottom: 1px solid var(--color-primary-ghost);
+            transition: color 0.35s;
+        }
+
+        .nav-mobile-links a:hover { color: var(--color-accent); }
+
+        .nav-mobile-tel {
+            display: block;
+            margin-top: 40px;
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 0.22em;
+            color: var(--color-accent);
+            text-decoration: none;
+            border-bottom: 1px solid var(--color-primary-dim);
+            padding-bottom: 3px;
+        }
+
         /* ================================================================
            HERO SECTION
            ================================================================ */
@@ -227,24 +309,23 @@
             position: relative;
             width: 100%;
             height: 100vh;
+            height: 100svh;
             min-height: 720px;
             display: flex;
             align-items: center;
             overflow: hidden;
         }
 
-        /* --- Camadas de fundo --- */
         .hero-bg {
             position: absolute;
-            inset: -24px;      /* margem extra para o parallax não exibir bordas */
+            inset: -24px;
             background:
                 radial-gradient(ellipse 75% 58% at 67% 42%, var(--color-primary-glow) 0%, transparent 65%),
-                radial-gradient(ellipse 45% 75% at 4%  92%, rgba(7, 14, 28, 0.72)    0%, transparent 55%),
+                radial-gradient(ellipse 45% 75% at 4% 92%, rgba(7, 14, 28, 0.72) 0%, transparent 55%),
                 linear-gradient(158deg, var(--color-bg-mid) 0%, var(--color-bg) 45%, var(--color-bg-deep) 100%);
             will-change: transform;
         }
 
-        /* Textura de grain — SVG feTurbulence como background-image */
         .hero-noise {
             position: absolute;
             inset: -12%;
@@ -254,23 +335,21 @@
             pointer-events: none;
         }
 
-        /* Linha rail vertical — esquerda */
         .hero-rail {
             position: absolute;
             left: 84px; top: 0; bottom: 0;
             width: 1px;
             background: linear-gradient(
                 to bottom,
-                transparent       0%,
+                transparent 0%,
                 var(--color-primary-dim) 12%,
                 var(--color-primary-dim) 88%,
-                transparent       100%
+                transparent 100%
             );
             transform: scaleY(0);
             transform-origin: 50% 0%;
         }
 
-        /* Detalhe de canto — inferior esquerdo */
         .hero-corner {
             position: absolute;
             bottom: 52px; left: 120px;
@@ -295,10 +374,9 @@
             width: 100%;
             max-width: 1500px;
             margin: 0 auto;
-            padding: 0 158px;
+            padding: 90px 158px 0;
         }
 
-        /* Eyebrow */
         .hero-eyebrow {
             display: flex;
             align-items: center;
@@ -326,11 +404,7 @@
             opacity: 0;
         }
 
-        /* ----------------------------------------------------------------
-           TÍTULO PRINCIPAL — Mask Reveal
-           Cada linha envolve um .mask-wrap (overflow:hidden) e um
-           .mask-inner (translateY(108%)) que emerge como uma cortina.
-           ---------------------------------------------------------------- */
+        /* ★ MASK REVEAL */
         .hero-headline {
             font-family: var(--font-serif);
             font-size: clamp(58px, 7.8vw, 118px);
@@ -343,7 +417,6 @@
         .mask-wrap {
             display: block;
             overflow: hidden;
-            /* padding extra para que descenders não sejam cortados */
             padding-bottom: 0.06em;
             margin-bottom: -0.04em;
         }
@@ -354,7 +427,6 @@
             will-change: transform;
         }
 
-        /* Escalonamento horizontal — ritmo visual de leitura descendente */
         .mask-wrap:nth-child(2) .mask-inner { padding-left: 0.44em; }
         .mask-wrap:nth-child(3) .mask-inner { padding-left: 0.88em; }
 
@@ -363,7 +435,6 @@
             color: var(--color-accent);
         }
 
-        /* Subtítulo */
         .hero-sub {
             margin-top: 44px;
             max-width: 410px;
@@ -375,7 +446,6 @@
             transform: translateY(22px);
         }
 
-        /* Ações */
         .hero-actions {
             margin-top: 64px;
             display: flex;
@@ -386,7 +456,7 @@
         }
 
         /* ----------------------------------------------------------------
-           BOTÃO CTA — preenchimento direcional (esquerda → direita)
+           CTA Button — fill direcional
            ---------------------------------------------------------------- */
         .btn-cta {
             position: relative;
@@ -403,12 +473,12 @@
             letter-spacing: 0.38em;
             text-transform: uppercase;
             text-decoration: none;
-            cursor: none;
+            cursor: pointer;
             overflow: hidden;
             transition: color 0.55s var(--ease-expo-io);
+            white-space: nowrap;
         }
 
-        /* Fill direcional */
         .btn-cta::before {
             content: '';
             position: absolute;
@@ -448,7 +518,6 @@
 
         .btn-cta:hover .btn-cta-arrow::before { width: 28px; }
 
-        /* Link fantasma */
         .btn-ghost {
             font-size: 8.5px;
             font-weight: 400;
@@ -457,7 +526,9 @@
             color: var(--color-text-sub);
             text-decoration: none;
             position: relative;
+            cursor: pointer;
             transition: color 0.4s;
+            white-space: nowrap;
         }
 
         .btn-ghost::after {
@@ -475,7 +546,7 @@
         .btn-ghost:hover::after { transform: scaleX(1); }
 
         /* ================================================================
-           STATS — inferior direito
+           STATS — Desktop (posição absoluta inferior direito)
            ================================================================ */
         .hero-stats {
             position: absolute;
@@ -519,12 +590,61 @@
         }
 
         /* ================================================================
+           STATS — Mobile (inline dentro do hero-inner)
+           ================================================================ */
+        .hero-stats-mob {
+            display: none; /* só aparece via media query */
+            gap: 0;
+            margin-top: 44px;
+            padding-top: 28px;
+            border-top: 1px solid var(--color-primary-ghost);
+            opacity: 0;
+            transform: translateY(22px);
+        }
+
+        .stat-mob {
+            flex: 1;
+            text-align: center;
+            padding: 0 12px;
+        }
+
+        .stat-mob + .stat-mob {
+            border-left: 1px solid var(--color-primary-ghost);
+        }
+
+        .stat-mob-n {
+            display: block;
+            font-family: var(--font-serif);
+            font-size: 30px;
+            font-weight: 300;
+            line-height: 1;
+            letter-spacing: -0.02em;
+            color: var(--color-text);
+        }
+
+        .stat-mob-n sup {
+            font-size: 0.48em;
+            color: var(--color-accent);
+            font-style: italic;
+            vertical-align: 0.6em;
+        }
+
+        .stat-mob-l {
+            display: block;
+            margin-top: 7px;
+            font-size: 7px;
+            font-weight: 500;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--color-text-sub);
+        }
+
+        /* ================================================================
            INDICADOR DE SCROLL
            ================================================================ */
         .scroll-hint {
             position: absolute;
-            bottom: 46px;
-            left: 50%;
+            bottom: 46px; left: 50%;
             transform: translateX(-50%);
             z-index: 3;
             display: flex;
@@ -561,6 +681,159 @@
             55%  { height: 65%; top: 0%;   opacity: 1; }
             100% { height: 0%;  top: 100%; opacity: 0; }
         }
+
+        /* ================================================================
+           TOUCH DEVICES — desativa cursor customizado e hover effects
+           ================================================================ */
+        @media (hover: none), (pointer: coarse) {
+            body { cursor: auto; }
+            .c-dot, .c-ring { display: none !important; }
+            .btn-cta, .btn-ghost,
+            .nav-links a, .nav-tel,
+            .nav-toggle, .nav-mobile-links a,
+            .nav-mobile-tel { cursor: pointer; }
+        }
+
+        /* ================================================================
+           TABLET — 769px a 1199px
+           ================================================================ */
+        @media (min-width: 769px) and (max-width: 1199px) {
+
+            #nav {
+                padding: 30px 48px;
+            }
+
+            .nav-links { gap: 32px; }
+
+            .nav-firm { display: none; }
+
+            .hero-inner {
+                padding: 80px 80px 0;
+            }
+
+            .hero-rail { left: 48px; }
+            .hero-corner { left: 84px; bottom: 40px; }
+
+            .hero-headline {
+                font-size: clamp(50px, 6.4vw, 94px);
+            }
+
+            .hero-sub {
+                max-width: 360px;
+                font-size: 11px;
+            }
+
+            .hero-stats {
+                right: 48px;
+                bottom: 44px;
+            }
+
+            .stat { padding: 0 24px; }
+
+            .stat-n { font-size: 36px; }
+
+            .stat-l { font-size: 7px; }
+        }
+
+        /* ================================================================
+           MOBILE — até 768px
+           ================================================================ */
+        @media (max-width: 768px) {
+
+            /* Nav */
+            #nav {
+                padding: 20px 24px;
+            }
+
+            .nav-links,
+            .nav-tel { display: none; }
+
+            .nav-toggle { display: flex; }
+
+            /* Hero layout */
+            #hero {
+                height: auto;
+                min-height: 100vh;
+                min-height: 100svh;
+                align-items: flex-start;
+                padding-bottom: 48px;
+            }
+
+            /* Decorativos — escondidos no mobile */
+            .hero-rail,
+            .hero-corner,
+            .scroll-hint { display: none; }
+
+            /* Conteúdo */
+            .hero-inner {
+                padding: 110px 24px 0;
+            }
+
+            .hero-eyebrow {
+                margin-bottom: 32px;
+            }
+
+            .eyebrow-copy {
+                font-size: 7.5px;
+                letter-spacing: 0.35em;
+            }
+
+            /* Título */
+            .hero-headline {
+                font-size: clamp(42px, 11vw, 64px);
+            }
+
+            /* Reduz recuo do escalonamento no mobile */
+            .mask-wrap:nth-child(2) .mask-inner { padding-left: 0.3em; }
+            .mask-wrap:nth-child(3) .mask-inner { padding-left: 0.6em; }
+
+            /* Subtítulo */
+            .hero-sub {
+                margin-top: 28px;
+                max-width: 100%;
+                font-size: 12px;
+                line-height: 1.9;
+            }
+
+            /* Botões — empilham verticalmente */
+            .hero-actions {
+                margin-top: 40px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 22px;
+            }
+
+            .btn-cta {
+                padding: 16px 32px;
+                font-size: 8px;
+                letter-spacing: 0.28em;
+                gap: 16px;
+            }
+
+            /* Esconde stats desktop, exibe mobile */
+            .hero-stats { display: none; }
+
+            .hero-stats-mob { display: flex; }
+        }
+
+        /* Telefones muito pequenos — até 380px */
+        @media (max-width: 380px) {
+
+            .hero-inner { padding: 100px 20px 0; }
+
+            .hero-headline { font-size: clamp(36px, 10.5vw, 52px); }
+
+            .mask-wrap:nth-child(2) .mask-inner { padding-left: 0.2em; }
+            .mask-wrap:nth-child(3) .mask-inner { padding-left: 0.4em; }
+
+            .btn-cta {
+                padding: 15px 24px;
+                font-size: 7.5px;
+                gap: 12px;
+            }
+
+            .stat-mob-n { font-size: 26px; }
+        }
     </style>
 </head>
 
@@ -578,7 +851,7 @@
 </div>
 
 <!-- ==========================================================
-     CURSOR
+     CURSOR (oculto em touch via CSS)
      ========================================================== -->
 <div class="c-dot"  id="c-dot"  aria-hidden="true"></div>
 <div class="c-ring" id="c-ring" aria-hidden="true"></div>
@@ -600,16 +873,38 @@
     </ul>
 
     <a href="tel:+551199990000" class="nav-tel">+55 (11) 9999‑0000</a>
+
+    <!-- Hamburguer — visível apenas em mobile via CSS -->
+    <button class="nav-toggle" id="nav-toggle"
+            aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-mobile">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
 </nav>
+
+<!-- ==========================================================
+     MENU MÓVEL — overlay fullscreen
+     ========================================================== -->
+<div id="nav-mobile" role="dialog" aria-modal="true" aria-label="Menu principal">
+    <div class="nav-mobile-border" aria-hidden="true"></div>
+    <ul class="nav-mobile-links" role="list">
+        <li><a href="#firma">A Firma</a></li>
+        <li><a href="#areas">Áreas de Atuação</a></li>
+        <li><a href="#publicacoes">Publicações</a></li>
+        <li><a href="#contato">Contato</a></li>
+    </ul>
+    <a href="tel:+551199990000" class="nav-mobile-tel">+55 (11) 9999‑0000</a>
+</div>
 
 <!-- ==========================================================
      HERO SECTION — Sessão 01
      ========================================================== -->
 <section id="hero" aria-label="Apresentação">
 
-    <div class="hero-bg"    id="hero-bg"></div>
-    <div class="hero-noise"              aria-hidden="true"></div>
-    <div class="hero-rail"  id="hero-rail" aria-hidden="true"></div>
+    <div class="hero-bg"   id="hero-bg"></div>
+    <div class="hero-noise"             aria-hidden="true"></div>
+    <div class="hero-rail" id="hero-rail" aria-hidden="true"></div>
 
     <div class="hero-corner" id="hero-corner" aria-hidden="true">
         <span>Est.&nbsp;MCMXCVIII</span>
@@ -642,7 +937,7 @@
             Estratégias jurídicas de precisão cirúrgica para decisões que moldam legados. Direito Empresarial, Tributário e Criminal de Alto Padrão.
         </p>
 
-        <!-- CTA -->
+        <!-- CTAs -->
         <div class="hero-actions" id="hero-actions">
             <a href="#contato" class="btn-cta">
                 <span class="btn-cta-label">Agendar Consulta Privada</span>
@@ -651,9 +946,25 @@
             <a href="#firma" class="btn-ghost">Conhecer a Firma</a>
         </div>
 
+        <!-- Stats mobile (visível apenas em ≤768px via CSS) -->
+        <div class="hero-stats-mob" id="hero-stats-mob" aria-label="Credenciais">
+            <div class="stat-mob">
+                <span class="stat-mob-n">25<sup>+</sup></span>
+                <span class="stat-mob-l">Anos de Atuação</span>
+            </div>
+            <div class="stat-mob">
+                <span class="stat-mob-n">98<sup>%</sup></span>
+                <span class="stat-mob-l">Taxa de Êxito</span>
+            </div>
+            <div class="stat-mob">
+                <span class="stat-mob-n">800<sup>+</sup></span>
+                <span class="stat-mob-l">Casos Concluídos</span>
+            </div>
+        </div>
+
     </div><!-- /.hero-inner -->
 
-    <!-- Stats — inferior direito -->
+    <!-- Stats desktop (posição absoluta, visível apenas em >768px via CSS) -->
     <div class="hero-stats" id="hero-stats" aria-label="Credenciais">
         <div class="stat">
             <div class="stat-n">25<sup>+</sup></div>
@@ -669,7 +980,7 @@
         </div>
     </div>
 
-    <!-- Indicador de scroll -->
+    <!-- Indicador de scroll (desktop) -->
     <div class="scroll-hint" id="scroll-hint" aria-hidden="true">
         <span class="scroll-hint-label">Scroll</span>
         <div class="scroll-track">
@@ -680,14 +991,10 @@
 </section><!-- /#hero -->
 
 <!-- ==========================================================
-     SCRIPTS — ao final do body para não bloquear renderização
+     SCRIPTS
      ========================================================== -->
-
-<!-- GSAP 3 + ScrollTrigger -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-
-<!-- Lenis — smooth scroll de alta fidelidade -->
 <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
 
 <script>
@@ -695,7 +1002,12 @@
     gsap.registerPlugin(ScrollTrigger);
 
     /* ============================================================
-       LENIS — smooth scroll sincronizado com GSAP ticker
+       DETECÇÃO DE TOUCH
+       ============================================================ */
+    const isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+
+    /* ============================================================
+       LENIS — smooth scroll
        ============================================================ */
     const lenis = new Lenis({
         duration:        1.4,
@@ -709,54 +1021,53 @@
     lenis.on('scroll', ScrollTrigger.update);
 
     /* ============================================================
-       CURSOR CUSTOMIZADO
+       CURSOR — apenas em dispositivos com mouse
        ============================================================ */
-    const dot  = document.getElementById('c-dot');
-    const ring = document.getElementById('c-ring');
-    let mx = 0, my = 0, rx = 0, ry = 0;
+    if (!isTouch) {
+        const dot  = document.getElementById('c-dot');
+        const ring = document.getElementById('c-ring');
+        let mx = 0, my = 0, rx = 0, ry = 0;
 
-    window.addEventListener('mousemove', e => {
-        mx = e.clientX;
-        my = e.clientY;
-        gsap.to(dot, { x: mx, y: my, duration: 0.06, ease: 'none' });
-    });
-
-    /* O ring segue com inércia suave */
-    (function trackRing() {
-        rx += (mx - rx) * 0.1;
-        ry += (my - ry) * 0.1;
-        gsap.set(ring, { x: rx, y: ry });
-        requestAnimationFrame(trackRing);
-    })();
-
-    /* Estados de hover — expande o ring sobre links e botões */
-    document.querySelectorAll('a, button').forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            gsap.to(ring, { scale: 1.75, opacity: 0.38, duration: 0.35 });
-            gsap.to(dot,  { scale: 0.4,                 duration: 0.35 });
+        window.addEventListener('mousemove', e => {
+            mx = e.clientX;
+            my = e.clientY;
+            gsap.to(dot, { x: mx, y: my, duration: 0.06, ease: 'none' });
         });
-        el.addEventListener('mouseleave', () => {
-            gsap.to(ring, { scale: 1, opacity: 1,       duration: 0.35 });
-            gsap.to(dot,  { scale: 1,                   duration: 0.35 });
+
+        (function trackRing() {
+            rx += (mx - rx) * 0.1;
+            ry += (my - ry) * 0.1;
+            gsap.set(ring, { x: rx, y: ry });
+            requestAnimationFrame(trackRing);
+        })();
+
+        document.querySelectorAll('a, button').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                gsap.to(ring, { scale: 1.75, opacity: 0.38, duration: 0.35 });
+                gsap.to(dot,  { scale: 0.4,                 duration: 0.35 });
+            });
+            el.addEventListener('mouseleave', () => {
+                gsap.to(ring, { scale: 1, opacity: 1,       duration: 0.35 });
+                gsap.to(dot,  { scale: 1,                   duration: 0.35 });
+            });
         });
-    });
+    }
 
     /* ============================================================
-       LOADER — simula progresso e dispara a entrada do hero
+       LOADER
        ============================================================ */
-    const fill    = document.getElementById('loader-fill');
-    const pctEl   = document.getElementById('loader-pct');
-    const brand   = document.querySelector('.loader-brand');
+    const fill  = document.getElementById('loader-fill');
+    const pctEl = document.getElementById('loader-pct');
+    const brand = document.querySelector('.loader-brand');
 
-    /* Anima o logotipo e o contador do loader */
     gsap.to(brand,  { opacity: 1, y: 0, duration: 0.65, delay: 0.15, ease: 'power3.out' });
     gsap.to(pctEl,  { opacity: 1,       duration: 0.5,  delay: 0.35 });
 
     let n = 0;
     const clock = setInterval(() => {
         n = Math.min(100, n + Math.random() * 11 + 2);
-        fill.style.width    = n + '%';
-        pctEl.textContent   = Math.floor(n) + '%';
+        fill.style.width  = n + '%';
+        pctEl.textContent = Math.floor(n) + '%';
         if (n >= 100) {
             clearInterval(clock);
             pctEl.textContent = '100%';
@@ -765,83 +1076,59 @@
     }, 90);
 
     /* ============================================================
-       HERO ENTRANCE — timeline mestre de revelação
+       HERO ENTRANCE
        ============================================================ */
     function enterHero() {
         const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
 
         tl
-            /* 1 — Loader sobe e sai de cena */
             .to('#loader', {
                 yPercent: -100,
                 duration: 1.18,
                 ease: 'power4.inOut',
             })
-
-            /* 2 — Navbar desliza de cima */
             .to('#nav', {
-                opacity: 1,
-                y: 0,
+                opacity: 1, y: 0,
                 duration: 0.78,
             }, '-=0.58')
-
-            /* 3 — Rail vertical esquerdo se desenha de cima para baixo */
             .to('#hero-rail', {
                 scaleY: 1,
                 duration: 1.55,
                 ease: 'power3.inOut',
             }, '-=0.82')
-
-            /* 4 — Linha do eyebrow se expande da esquerda */
             .to('#eyebrow-rule', {
                 scaleX: 1,
                 duration: 0.72,
                 ease: 'power3.inOut',
             }, '-=1.15')
-
-            /* 5 — Texto do eyebrow emerge de baixo da máscara */
             .to('#eyebrow-copy', {
-                y: 0,
-                opacity: 1,
+                y: 0, opacity: 1,
                 duration: 0.65,
             }, '-=0.55')
-
-            /* 6 — ★ MASK REVEAL — as 3 linhas do título emergem das máscaras */
+            /* ★ Mask Reveal */
             .to(['#hl1', '#hl2', '#hl3'], {
                 y: '0%',
                 duration: 1.18,
                 stagger: 0.13,
                 ease: 'power4.out',
             }, '-=0.48')
-
-            /* 7 — Subtítulo sobe com fade */
             .to('#hero-sub', {
-                opacity: 1,
-                y: 0,
+                opacity: 1, y: 0,
                 duration: 0.88,
             }, '-=0.48')
-
-            /* 8 — Grupo de CTAs */
             .to('#hero-actions', {
-                opacity: 1,
-                y: 0,
+                opacity: 1, y: 0,
                 duration: 0.88,
             }, '-=0.62')
-
-            /* 9 — Stats (inferior direito) */
-            .to('#hero-stats', {
-                opacity: 1,
-                y: 0,
+            /* Stats desktop e mobile animam juntos */
+            .to(['#hero-stats', '#hero-stats-mob'], {
+                opacity: 1, y: 0,
                 duration: 0.72,
             }, '-=0.58')
-
-            /* 10 — Indicador de scroll */
             .to('#scroll-hint', {
                 opacity: 1,
                 duration: 0.58,
             }, '-=0.38')
-
-            /* 11 — Detalhe de canto */
             .to('#hero-corner', {
                 opacity: 1,
                 duration: 0.55,
@@ -849,29 +1136,75 @@
     }
 
     /* ============================================================
-       PARALLAX — movimento sutil do fundo com o mouse
+       PARALLAX — apenas em dispositivos com mouse
        ============================================================ */
-    const heroEl = document.getElementById('hero');
+    if (!isTouch) {
+        document.getElementById('hero').addEventListener('mousemove', e => {
+            const xR = (e.clientX / window.innerWidth  - 0.5) * 2;
+            const yR = (e.clientY / window.innerHeight - 0.5) * 2;
 
-    heroEl.addEventListener('mousemove', e => {
-        const xR = (e.clientX / window.innerWidth  - 0.5) * 2;
-        const yR = (e.clientY / window.innerHeight - 0.5) * 2;
+            gsap.to('#hero-bg', {
+                x: xR * 9, y: yR * 6,
+                duration: 2.4, ease: 'power2.out',
+            });
 
-        /* Fundo se desloca levemente (inset:-24px garante que não apareçam bordas) */
-        gsap.to('#hero-bg', {
-            x: xR * 9,
-            y: yR * 6,
-            duration: 2.4,
-            ease: 'power2.out',
+            gsap.to('#hero-stats', {
+                x: xR * -16, y: yR * -9,
+                duration: 1.9, ease: 'power2.out',
+            });
+        });
+    }
+
+    /* ============================================================
+       MENU MÓVEL — hamburguer
+       ============================================================ */
+    const navToggle = document.getElementById('nav-toggle');
+    const navMobile = document.getElementById('nav-mobile');
+    const mobileLinks = navMobile.querySelectorAll('.nav-mobile-links a, .nav-mobile-tel');
+    let mobileOpen = false;
+
+    function openNav() {
+        mobileOpen = true;
+        navToggle.classList.add('is-open');
+        navToggle.setAttribute('aria-expanded', 'true');
+        document.body.classList.add('nav-open');
+        lenis.stop();
+
+        gsap.set(navMobile, { display: 'flex' });
+        gsap.fromTo(navMobile,
+            { opacity: 0 },
+            { opacity: 1, duration: 0.42, ease: 'power2.out' }
+        );
+        gsap.fromTo(mobileLinks,
+            { opacity: 0, y: 28 },
+            { opacity: 1, y: 0, duration: 0.52, stagger: 0.07, delay: 0.12, ease: 'power3.out' }
+        );
+    }
+
+    function closeNav() {
+        mobileOpen = false;
+        navToggle.classList.remove('is-open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('nav-open');
+
+        gsap.to(navMobile, {
+            opacity: 0,
+            duration: 0.32,
+            ease: 'power2.in',
+            onComplete: () => gsap.set(navMobile, { display: 'none' }),
         });
 
-        /* Stats reagem com mais intensidade, criando profundidade */
-        gsap.to('#hero-stats', {
-            x: xR * -16,
-            y: yR * -9,
-            duration: 1.9,
-            ease: 'power2.out',
-        });
+        lenis.start();
+    }
+
+    navToggle.addEventListener('click', () => mobileOpen ? closeNav() : openNav());
+
+    /* Fecha ao clicar num link */
+    mobileLinks.forEach(link => link.addEventListener('click', closeNav));
+
+    /* Fecha com Escape */
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && mobileOpen) closeNav();
     });
 </script>
 
