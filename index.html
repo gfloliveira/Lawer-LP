@@ -640,6 +640,40 @@
         }
 
         /* ================================================================
+           HERO PHOTO PANEL
+           ================================================================ */
+        .hero-photo {
+            position: absolute;
+            right: 0; top: 0; bottom: 0;
+            width: 45%;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .hero-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 10%;
+            display: block;
+            filter: brightness(0.80) saturate(0.85) contrast(1.04);
+            will-change: transform;
+            transform-origin: center;
+        }
+
+        /* Gradientes de fusão: esquerda (blenda com o fundo), topo e base */
+        .hero-photo-overlay {
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(to right,  var(--color-bg) 0%, rgba(11, 19, 32, 0) 42%),
+                linear-gradient(to top,    var(--color-bg) 0%, rgba(11, 19, 32, 0) 20%),
+                linear-gradient(to bottom, rgba(11, 19, 32, 0.45) 0%, rgba(11, 19, 32, 0) 22%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* ================================================================
            INDICADOR DE SCROLL
            ================================================================ */
         .scroll-hint {
@@ -711,6 +745,8 @@
                 padding: 80px 80px 0;
             }
 
+            .hero-photo { width: 42%; }
+
             .hero-rail { left: 48px; }
             .hero-corner { left: 84px; bottom: 40px; }
 
@@ -759,9 +795,10 @@
                 padding-bottom: 48px;
             }
 
-            /* Decorativos — escondidos no mobile */
+            /* Decorativos e foto — escondidos no mobile */
             .hero-rail,
             .hero-corner,
+            .hero-photo,
             .scroll-hint { display: none; }
 
             /* Conteúdo */
@@ -964,6 +1001,14 @@
 
     </div><!-- /.hero-inner -->
 
+    <!-- Foto da equipe — desktop e tablet -->
+    <div class="hero-photo" id="hero-photo" aria-hidden="true">
+        <img src="assets/img/hero-lawyers.png"
+             alt="Equipe de advogados A&amp;S Advocacia"
+             id="hero-photo-img">
+        <div class="hero-photo-overlay"></div>
+    </div>
+
     <!-- Stats desktop (posição absoluta, visível apenas em >768px via CSS) -->
     <div class="hero-stats" id="hero-stats" aria-label="Credenciais">
         <div class="stat">
@@ -1087,6 +1132,18 @@
                 duration: 1.18,
                 ease: 'power4.inOut',
             })
+
+            /* ★ Foto — wipe da borda direita para o centro, com fade */
+            .fromTo('#hero-photo',
+                { opacity: 0 },
+                { opacity: 1, duration: 0.5, ease: 'power2.out' },
+            0.35)
+            .from('#hero-photo-img', {
+                clipPath: 'inset(0 0 0 100%)',
+                duration: 1.35,
+                ease: 'power4.inOut',
+            }, 0.35)
+
             .to('#nav', {
                 opacity: 1, y: 0,
                 duration: 0.78,
@@ -1146,6 +1203,12 @@
             gsap.to('#hero-bg', {
                 x: xR * 9, y: yR * 6,
                 duration: 2.4, ease: 'power2.out',
+            });
+
+            /* Foto: parallax leve — cria profundidade em relação ao texto */
+            gsap.to('#hero-photo-img', {
+                x: xR * -12, y: yR * -8,
+                duration: 2.0, ease: 'power2.out',
             });
 
             gsap.to('#hero-stats', {
