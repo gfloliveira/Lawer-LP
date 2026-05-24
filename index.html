@@ -925,6 +925,268 @@
 
             .stat-mob-n { font-size: 26px; }
         }
+        /* ================================================================
+           SEÇÃO 02 — A FIRMA / SÓCIO FUNDADOR
+           ================================================================ */
+        #firma {
+            position: relative;
+            background: var(--color-bg);
+            overflow: hidden;
+        }
+
+        /* Número decorativo de fundo */
+        .s-num {
+            position: absolute;
+            right: -0.04em;
+            top: 0.05em;
+            font-family: var(--font-serif);
+            font-size: clamp(160px, 20vw, 300px);
+            font-weight: 600;
+            line-height: 1;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(212, 175, 55, 0.055);
+            pointer-events: none;
+            user-select: none;
+            z-index: 0;
+        }
+
+        /* Grid assimétrico: foto | texto */
+        .firma-grid {
+            display: grid;
+            grid-template-columns: 42% 1fr;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ---- Coluna esquerda — foto sticky ---- */
+        .firma-photo-col {
+            align-self: start;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .firma-fig {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+
+        /* Substituir por retrato do sócio fundador em produção */
+        .firma-fig img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: 42% 0%;
+            display: block;
+            filter: brightness(0.70) saturate(0.68) contrast(1.10);
+            transform: scale(1.12);
+            transform-origin: center top;
+            will-change: transform;
+        }
+
+        /* Overlay: degrade para a direita + topo + base */
+        .firma-fig-overlay {
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(to right,  rgba(11,19,32,0) 45%, var(--color-bg) 100%),
+                linear-gradient(to bottom, rgba(11,19,32,0.65) 0%, rgba(11,19,32,0) 18%),
+                linear-gradient(to top,    rgba(11,19,32,0.55) 0%, rgba(11,19,32,0) 22%);
+            pointer-events: none;
+        }
+
+        /* ---- Coluna direita — texto ---- */
+        .firma-text-col {
+            padding: 148px 120px 148px 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-left: 1px solid var(--color-primary-ghost);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Eyebrow */
+        .firma-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 52px;
+        }
+
+        .firma-eyebrow-rule {
+            display: block;
+            width: 44px; height: 1px;
+            background: var(--color-accent);
+            flex-shrink: 0;
+            transform: scaleX(0);
+            transform-origin: 0 50%;
+        }
+
+        .firma-eyebrow-text {
+            font-size: 8.5px;
+            font-weight: 500;
+            letter-spacing: 0.46em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(100%);
+        }
+
+        /* Título — mask reveal ao scroll */
+        .firma-title {
+            font-family: var(--font-serif);
+            font-size: clamp(36px, 4.2vw, 66px);
+            font-weight: 300;
+            line-height: 1.06;
+            letter-spacing: -0.01em;
+            color: var(--color-text);
+            margin-bottom: 52px;
+        }
+
+        .f-mask-wrap {
+            display: block;
+            overflow: hidden;
+            padding-bottom: 0.05em;
+            margin-bottom: -0.03em;
+        }
+
+        .f-mask-inner {
+            display: inline-block;
+            transform: translateY(108%);
+            will-change: transform;
+        }
+
+        .firma-title em {
+            font-style: italic;
+            color: var(--color-accent);
+        }
+
+        /* Parágrafos */
+        .firma-body {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin-bottom: 52px;
+        }
+
+        .firma-p {
+            font-size: 13px;
+            line-height: 1.95;
+            letter-spacing: 0.025em;
+            color: var(--color-text-sub);
+            max-width: 540px;
+        }
+
+        /* Credenciais */
+        .firma-creds {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            padding: 28px 0;
+            border-top:    1px solid var(--color-primary-ghost);
+            border-bottom: 1px solid var(--color-primary-ghost);
+            margin-bottom: 48px;
+        }
+
+        .firma-cred {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 8.5px;
+            font-weight: 500;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--color-text-sub);
+        }
+
+        .firma-cred-dot {
+            flex-shrink: 0;
+            width: 4px; height: 4px;
+            border-radius: 50%;
+            background: var(--color-accent);
+        }
+
+        /* Assinatura */
+        .firma-signature {
+            margin-bottom: 56px;
+        }
+
+        .firma-sig-rule {
+            width: 48px; height: 1px;
+            background: var(--color-primary-dim);
+            margin-bottom: 18px;
+        }
+
+        .firma-sig-name {
+            font-family: var(--font-serif);
+            font-size: 22px;
+            font-weight: 300;
+            font-style: italic;
+            color: var(--color-text);
+            letter-spacing: 0.02em;
+            margin-bottom: 6px;
+        }
+
+        .firma-sig-role {
+            font-size: 8.5px;
+            font-weight: 500;
+            letter-spacing: 0.32em;
+            text-transform: uppercase;
+            color: var(--color-text-sub);
+        }
+
+        /* ---- Firma — Tablet ---- */
+        @media (min-width: 769px) and (max-width: 1199px) {
+            .firma-grid { grid-template-columns: 44% 1fr; }
+            .firma-text-col { padding: 100px 60px 100px 72px; }
+            .firma-title { font-size: clamp(30px, 3.6vw, 52px); }
+            .firma-p { font-size: 12px; max-width: 100%; }
+            .s-num { font-size: clamp(120px, 16vw, 220px); }
+        }
+
+        /* ---- Firma — Mobile ---- */
+        @media (max-width: 768px) {
+            #firma { overflow: visible; }
+            .s-num { display: none; }
+
+            .firma-grid { grid-template-columns: 1fr; }
+
+            .firma-photo-col {
+                position: relative;
+                align-self: auto;
+                height: 72vw;
+                max-height: 400px;
+            }
+
+            .firma-fig img {
+                transform: none;
+                object-position: center 18%;
+            }
+
+            .firma-text-col {
+                padding: 52px 24px 72px;
+                border-left: none;
+                border-top: 1px solid var(--color-primary-ghost);
+            }
+
+            .firma-eyebrow   { margin-bottom: 32px; }
+            .firma-title     { font-size: clamp(32px, 8.5vw, 50px); margin-bottom: 36px; }
+            .firma-p         { font-size: 12.5px; max-width: 100%; }
+            .firma-body      { gap: 20px; margin-bottom: 40px; }
+            .firma-creds     { margin-bottom: 36px; }
+            .firma-signature { margin-bottom: 44px; }
+            .firma-sig-name  { font-size: 20px; }
+        }
+
+        @media (max-width: 380px) {
+            .firma-title { font-size: clamp(28px, 8vw, 42px); }
+            .firma-text-col { padding: 44px 20px 64px; }
+        }
     </style>
 </head>
 
@@ -1088,6 +1350,104 @@
     </div>
 
 </section><!-- /#hero -->
+
+<!-- ==========================================================
+     SEÇÃO 02 — A FIRMA / SÓCIO FUNDADOR
+     ========================================================== -->
+<section id="firma" aria-label="A Firma">
+
+    <span class="s-num" aria-hidden="true">02</span>
+
+    <div class="firma-grid">
+
+        <!-- Coluna esquerda — foto sticky com parallax -->
+        <div class="firma-photo-col" aria-hidden="true">
+            <figure class="firma-fig">
+                <!-- Substituir por retrato do sócio fundador -->
+                <img src="assets/img/hero-lawyers.png"
+                     alt="Equipe A&amp;S Advocacia"
+                     id="firma-photo-img">
+                <div class="firma-fig-overlay"></div>
+            </figure>
+        </div>
+
+        <!-- Coluna direita — conteúdo institucional -->
+        <div class="firma-text-col">
+
+            <div class="firma-eyebrow">
+                <span class="firma-eyebrow-rule"></span>
+                <span class="firma-eyebrow-text">A Firma · Desde 1998</span>
+            </div>
+
+            <!-- Título com mask reveal ao scroll -->
+            <h2 class="firma-title"
+                aria-label="Estratégia Jurídica como Arte. Confiança como Fundação.">
+                <span class="f-mask-wrap"><span class="f-mask-inner">Estratégia</span></span>
+                <span class="f-mask-wrap"><span class="f-mask-inner">Jurídica Como</span></span>
+                <span class="f-mask-wrap"><span class="f-mask-inner"><em>Arte.</em> Confiança</span></span>
+                <span class="f-mask-wrap"><span class="f-mask-inner">Como Fundação.</span></span>
+            </h2>
+
+            <!-- Parágrafos — fade-up sequencial via ScrollTrigger -->
+            <div class="firma-body">
+                <p class="firma-p">
+                    Fundado em 1998 pelo Dr. Ricardo Alves Santos, o escritório
+                    nasceu com uma missão precisa: oferecer assessoria jurídica
+                    de alto padrão com a atenção individualizada que decisões
+                    de peso verdadeiro exigem. Desde o primeiro dia, recusamos
+                    a advocacia de massa.
+                </p>
+                <p class="firma-p">
+                    Ao longo de mais de duas décadas, construímos um portfólio
+                    de casos complexos nas áreas de Direito Empresarial,
+                    Tributário e Criminal. Nossa premissa permanece inabalável:
+                    cada cliente merece uma estratégia singular, arquitetada
+                    para a sua realidade — não para um modelo genérico.
+                </p>
+                <p class="firma-p">
+                    Nossa equipe é formada por juristas que não apenas dominam
+                    a lei — eles compreendem o negócio dos nossos clientes.
+                    Essa visão integrada é o que nos permite entregar resultados
+                    onde outros enxergam apenas obstáculos.
+                </p>
+            </div>
+
+            <!-- Credenciais institucionais -->
+            <div class="firma-creds">
+                <div class="firma-cred">
+                    <span class="firma-cred-dot"></span>
+                    <span>OAB/SP · Registro Ativo</span>
+                </div>
+                <div class="firma-cred">
+                    <span class="firma-cred-dot"></span>
+                    <span>Membro CESA — Comitê de Direito Empresarial</span>
+                </div>
+                <div class="firma-cred">
+                    <span class="firma-cred-dot"></span>
+                    <span>Reconhecido · Chambers &amp; Partners 2024</span>
+                </div>
+                <div class="firma-cred">
+                    <span class="firma-cred-dot"></span>
+                    <span>Top Law Firms — Análise Advocacia 500</span>
+                </div>
+            </div>
+
+            <!-- Assinatura do sócio fundador -->
+            <div class="firma-signature">
+                <div class="firma-sig-rule"></div>
+                <p class="firma-sig-name">Dr. Ricardo Alves Santos</p>
+                <p class="firma-sig-role">Sócio Fundador &amp; Diretor Jurídico</p>
+            </div>
+
+            <a href="#areas" class="btn-cta firma-cta">
+                <span class="btn-cta-label">Conheça Nossas Áreas</span>
+                <span class="btn-cta-arrow" aria-hidden="true"></span>
+            </a>
+
+        </div><!-- /.firma-text-col -->
+    </div><!-- /.firma-grid -->
+
+</section><!-- /#firma -->
 
 <!-- ==========================================================
      SCRIPTS
@@ -1287,6 +1647,74 @@
             });
         });
     }
+
+    /* ============================================================
+       SEÇÃO 02 — FIRMA: ScrollTrigger animations
+       ============================================================ */
+    (function initFirma() {
+
+        /* Parallax da foto — velocidade diferente do scroll cria profundidade */
+        if (!isTouch) {
+            gsap.to('#firma-photo-img', {
+                yPercent: -10,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '#firma',
+                    start:   'top bottom',
+                    end:     'bottom top',
+                    scrub:   1.5,
+                }
+            });
+        }
+
+        /* Eyebrow: linha expande + texto emerge */
+        const eyeTL = gsap.timeline({
+            scrollTrigger: { trigger: '.firma-eyebrow', start: 'top 82%' }
+        });
+        eyeTL
+            .to('.firma-eyebrow-rule', { scaleX: 1, duration: 0.7, ease: 'power3.inOut' })
+            .to('.firma-eyebrow-text', { y: 0, opacity: 1, duration: 0.65 }, '-=0.3');
+
+        /* Título — mask reveal ao scroll (mesma linguagem da hero) */
+        gsap.to('.f-mask-inner', {
+            y: '0%',
+            duration: 1.05,
+            stagger: 0.10,
+            ease: 'power4.out',
+            scrollTrigger: { trigger: '.firma-title', start: 'top 80%' }
+        });
+
+        /* Parágrafos — fade-up sequencial */
+        gsap.from('.firma-p', {
+            y: 38,
+            opacity: 0,
+            duration: 0.88,
+            stagger: 0.16,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: '.firma-body', start: 'top 78%' }
+        });
+
+        /* Credenciais — fade-in escalonado */
+        gsap.from('.firma-cred', {
+            y: 16,
+            opacity: 0,
+            duration: 0.65,
+            stagger: 0.09,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: '.firma-creds', start: 'top 85%' }
+        });
+
+        /* Assinatura + CTA */
+        gsap.from(['.firma-signature', '.firma-cta'], {
+            y: 22,
+            opacity: 0,
+            duration: 0.75,
+            stagger: 0.14,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: '.firma-signature', start: 'top 88%' }
+        });
+
+    })();
 
     /* ============================================================
        MENU MÓVEL — hamburguer
