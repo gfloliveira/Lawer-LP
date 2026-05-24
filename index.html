@@ -931,7 +931,7 @@
         #firma {
             position: relative;
             background: var(--color-bg);
-            overflow: hidden;
+            overflow: clip; /* clip ≠ hidden: não cria scroll-container, mantém sticky funcional */
         }
 
         /* Número decorativo de fundo */
@@ -1366,7 +1366,8 @@
                 <!-- Substituir por retrato do sócio fundador -->
                 <img src="assets/img/hero-lawyers.png"
                      alt="Equipe A&amp;S Advocacia"
-                     id="firma-photo-img">
+                     id="firma-photo-img"
+                     loading="lazy">
                 <div class="firma-fig-overlay"></div>
             </figure>
         </div>
