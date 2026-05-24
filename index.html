@@ -2285,6 +2285,12 @@
             gap: 0 60px;
         }
 
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
         .footer-logo {
             font-family: var(--font-serif);
             font-size: 20px;
@@ -2989,7 +2995,7 @@
 
             <h2 class="contato-title" aria-label="Inicie uma Conversa.">
                 <span class="ct-mask-wrap"><span class="ct-mask-inner">Inicie uma</span></span>
-                <span class="ct-mask-wrap"><span class="ct-mask-inner ct-mask-accent"><em>Conversa.</em></span></span>
+                <span class="ct-mask-wrap"><span class="ct-mask-inner"><em>Conversa.</em></span></span>
             </h2>
 
             <p class="contato-sub">
@@ -3186,7 +3192,7 @@
             requestAnimationFrame(trackRing);
         })();
 
-        document.querySelectorAll('a, button, .area-item').forEach(el => {
+        document.querySelectorAll('a, button, .area-item, .pub-card').forEach(el => {
             el.addEventListener('mouseenter', () => {
                 gsap.to(ring, { scale: 1.75, opacity: 0.38, duration: 0.35 });
                 gsap.to(dot,  { scale: 0.4,                 duration: 0.35 });
@@ -3612,7 +3618,7 @@
             if (!modalOpen) return;
             modalOpen = false;
             document.body.classList.remove('modal-open');
-            lenis.start();
+            if (!mobileOpen) lenis.start();
             modalTl.reverse();
         }
 
@@ -3675,7 +3681,7 @@
         });
 
         /* — Form groups: CSS define opacity:0 + translateY(20px) — */
-        gsap.to('.form-group', {
+        gsap.to('#contato .form-group', {
             opacity: 1, y: 0, duration: 0.65, ease: 'power3.out', stagger: 0.08,
             scrollTrigger: { trigger: '.contato-form', start: 'top 88%' }
         });
@@ -3701,14 +3707,20 @@
 
         if (!form || !successEl) return;
 
+        let submitting = false;
+
+        const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
         form.addEventListener('submit', e => {
             e.preventDefault();
+            if (submitting) return;
 
-            /* Basic required check */
             const required = form.querySelectorAll('[required]');
             let valid = true;
             required.forEach(field => {
-                if (!field.value.trim()) {
+                const empty = !field.value.trim();
+                const badEmail = field.type === 'email' && !emailRe.test(field.value.trim());
+                if (empty || badEmail) {
                     field.closest('.form-group').classList.add('has-error');
                     valid = false;
                 } else {
@@ -3717,7 +3729,8 @@
             });
             if (!valid) return;
 
-            /* Animate form out → success in */
+            submitting = true;
+
             const tl = gsap.timeline();
             tl.to(form, { opacity: 0, y: -16, duration: 0.40, ease: 'power2.in',
                 onComplete: () => gsap.set(form, { display: 'none' })
@@ -3729,10 +3742,11 @@
             .to(successEl, { opacity: 1, y: 0, duration: 0.55, ease: 'power3.out' });
         });
 
-        /* Clear has-error on input */
-        form.querySelectorAll('.form-input').forEach(input => {
-            input.addEventListener('input', () => {
-                input.closest('.form-group').classList.remove('has-error');
+        /* Clear has-error on interaction — input para texto/textarea, change para select */
+        form.querySelectorAll('.form-input').forEach(el => {
+            const evt = el.tagName === 'SELECT' ? 'change' : 'input';
+            el.addEventListener(evt, () => {
+                el.closest('.form-group').classList.remove('has-error');
             });
         });
 
