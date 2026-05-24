@@ -53,7 +53,8 @@
             cursor: none;
         }
 
-        body.nav-open { overflow: hidden; }
+        body.nav-open   { overflow: hidden; }
+        body.modal-open { overflow: hidden; }
 
         /* ================================================================
            CURSOR (desktop/mouse only)
@@ -1835,6 +1836,149 @@
             .pub-track  { padding: 0 20px 64px; gap: 14px; }
             .pub-card   { padding: 32px 28px 36px; }
         }
+
+        /* ================================================================
+           MODAL — Publicações & Casos (glassmorphism)
+           ================================================================ */
+        #pub-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 800;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        /* Backdrop — fundo embaçado */
+        .pub-modal-bd {
+            position: absolute;
+            inset: 0;
+            background: rgba(7, 14, 28, 0.72);
+            backdrop-filter: blur(18px) saturate(1.2);
+            -webkit-backdrop-filter: blur(18px) saturate(1.2);
+        }
+
+        /* Card glassmorphism */
+        .pub-modal-card {
+            position: relative;
+            z-index: 1;
+            background: rgba(11, 19, 32, 0.86);
+            backdrop-filter: blur(32px) saturate(1.5);
+            -webkit-backdrop-filter: blur(32px) saturate(1.5);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow:
+                inset 0 1px 0 rgba(212, 175, 55, 0.08),
+                0 40px 80px rgba(7, 14, 28, 0.55);
+            padding: 52px 56px 56px;
+            max-width: 620px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(212,175,55,0.28) transparent;
+        }
+
+        .pub-modal-card::-webkit-scrollbar       { width: 4px; }
+        .pub-modal-card::-webkit-scrollbar-track  { background: transparent; }
+        .pub-modal-card::-webkit-scrollbar-thumb  { background: rgba(212,175,55,0.28); border-radius: 2px; }
+
+        /* Cabeçalho do modal */
+        .pub-modal-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .pub-modal-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .pub-modal-cat {
+            font-size: 7.5px;
+            font-weight: 500;
+            letter-spacing: 0.34em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+        }
+
+        .pub-modal-year {
+            font-size: 7.5px;
+            font-weight: 400;
+            letter-spacing: 0.22em;
+            color: var(--color-text-sub);
+        }
+
+        /* Botão fechar — mesmo vocabulário do hamburger */
+        .pub-modal-close {
+            flex-shrink: 0;
+            width: 40px; height: 40px;
+            background: transparent;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            cursor: pointer;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: border-color 0.35s;
+        }
+
+        .pub-modal-close:hover { border-color: rgba(212, 175, 55, 0.5); }
+
+        .pub-modal-close span {
+            display: block;
+            width: 16px; height: 1px;
+            background: var(--color-accent);
+            position: absolute;
+        }
+
+        .pub-modal-close span:nth-child(1) { transform: rotate(45deg); }
+        .pub-modal-close span:nth-child(2) { transform: rotate(-45deg); }
+
+        /* Conteúdo */
+        .pub-modal-title {
+            font-family: var(--font-serif);
+            font-size: clamp(22px, 2.4vw, 34px);
+            font-weight: 300;
+            line-height: 1.22;
+            letter-spacing: -0.01em;
+            color: var(--color-text);
+            margin-bottom: 26px;
+        }
+
+        .pub-modal-rule {
+            width: 44px; height: 1px;
+            background: var(--color-primary-dim);
+            margin-bottom: 22px;
+        }
+
+        .pub-modal-text {
+            font-size: 13px;
+            line-height: 2.0;
+            letter-spacing: 0.025em;
+            color: var(--color-text-sub);
+        }
+
+        /* Touch — cursor pointer no close */
+        @media (hover: none), (pointer: coarse) {
+            .pub-modal-close { cursor: pointer; }
+        }
+
+        @media (max-width: 768px) {
+            #pub-modal        { padding: 16px; }
+            .pub-modal-card   { padding: 36px 28px 40px; max-height: 90vh; }
+            .pub-modal-title  { font-size: clamp(20px, 6vw, 26px); }
+            .pub-modal-text   { font-size: 12.5px; }
+        }
+
+        @media (max-width: 380px) {
+            .pub-modal-card { padding: 28px 20px 32px; }
+        }
     </style>
 </head>
 
@@ -2796,6 +2940,102 @@
             });
         }
 
+        /* --------------------------------------------------------
+           Modal — textos completos de cada card
+           -------------------------------------------------------- */
+        const fullContent = [
+            {
+                full: 'Vitória no CARF em disputas relativas à compensação de créditos PIS/COFINS para grupo industrial de médio porte. O processo envolvia autuação fiscal de seis anos, com debates técnicos sobre não-cumulatividade e regimes de apuração. Nossa atuação reverteu integralmente as penalidades, recuperou R$ 8,2 milhões em créditos tributários e gerou precedente favorável para revisões de exercícios anteriores à autuação.'
+            },
+            {
+                full: 'Defesa bem-sucedida em ação penal de alta complexidade envolvendo operações de câmbio e transferências internacionais suspeitas ao longo de cinco anos. Nossa atuação demonstrou a licitude integral das operações por meio de perícia financeira independente e testemunhos técnicos. Absolvição obtida na 2ª instância do TRF, com dissolução de todas as medidas cautelares patrimoniais e plena reabilitação reputacional do cliente.'
+            },
+            {
+                full: 'Análise aprofundada das principais decisões do Conselho Administrativo de Recursos Fiscais no 1º semestre de 2024. O estudo cobre: (1) novas teses sobre exclusão do ICMS da base de PIS/COFINS pós-STJ; (2) entendimento consolidado sobre PLR e contribuições previdenciárias; (3) tratamento de JCP retroativos e impactos para planejamento. Apresenta recomendações práticas para adequação imediata de posições fiscais. Publicado na Revista de Direito Tributário Atual, vol. 58.'
+            },
+            {
+                full: 'Assessoria jurídica completa em operação de M&A cross-border para grupo com presença em Brasil, México, Colômbia e Argentina. O escopo incluiu due diligence simultânea nas quatro jurisdições, estruturação do SPE de aquisição, negociação do SPA e acordos de acionistas, e obtenção de todas as aprovações regulatórias necessárias. Transação de R$ 120 milhões concluída em 90 dias corridos, dentro do cronograma e sem contingências identificadas no pós-fechamento.'
+            },
+            {
+                full: 'Estudo sobre as transformações estruturais da Lei Anticorrupção (Lei 12.846/2013) após as reformas regulatórias de 2023. O artigo apresenta: (1) novos critérios de avaliação de programas de integridade pela CGU; (2) impactos da nova Lei das Agências Reguladoras no compliance setorial; (3) framework atualizado de gestão de riscos anticorrupção com checklist prático de auditoria. Publicado no Anuário de Compliance & Governança Corporativa 2024.'
+            }
+        ];
+
+        /* Referências do modal */
+        const modal      = document.getElementById('pub-modal');
+        const modalBd    = document.getElementById('pub-modal-bd');
+        const modalCard  = document.getElementById('pub-modal-card');
+        const modalClose = document.getElementById('pub-modal-close');
+        const modalCat   = document.getElementById('pub-modal-cat');
+        const modalYear  = document.getElementById('pub-modal-year');
+        const modalTitle = document.getElementById('pub-modal-title');
+        const modalText  = document.getElementById('pub-modal-text');
+
+        let modalOpen = false;
+
+        /* Timeline reutilizável — forward = abre, reverse = fecha */
+        const modalTl = gsap.timeline({
+            paused: true,
+            onReverseComplete: () => gsap.set(modal, { display: 'none' })
+        });
+        modalTl
+            .fromTo(modalBd,
+                { opacity: 0 },
+                { opacity: 1, duration: 0.42, ease: 'power2.out' })
+            .fromTo(modalCard,
+                { opacity: 0, y: 28, scale: 0.96 },
+                { opacity: 1, y: 0,  scale: 1,    duration: 0.52, ease: 'power3.out' },
+            '-=0.22');
+
+        function openModal(data) {
+            if (modalOpen) return;
+            modalCat.textContent   = data.cat;
+            modalYear.textContent  = data.year;
+            modalTitle.textContent = data.title;
+            modalText.textContent  = data.full;
+            modalCard.scrollTop    = 0;
+
+            gsap.set(modal, { display: 'flex' });
+            document.body.classList.add('modal-open');
+            lenis.stop();
+            modalOpen = true;
+            modalTl.play(0);
+            requestAnimationFrame(() => modalClose.focus());
+        }
+
+        function closeModal() {
+            if (!modalOpen) return;
+            modalOpen = false;
+            document.body.classList.remove('modal-open');
+            lenis.start();
+            modalTl.reverse();
+        }
+
+        /* Wiring — clique nos links dos cards */
+        document.querySelectorAll('.pub-card-link').forEach((link, i) => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                const card = link.closest('.pub-card');
+                openModal({
+                    cat:   card.querySelector('.pub-card-cat').textContent,
+                    year:  card.querySelector('.pub-card-year').textContent,
+                    title: card.querySelector('.pub-card-title').textContent,
+                    full:  fullContent[i].full
+                });
+            });
+        });
+
+        /* Fecha ao clicar no backdrop */
+        modalBd.addEventListener('click', closeModal);
+
+        /* Fecha com botão × */
+        modalClose.addEventListener('click', closeModal);
+
+        /* Fecha com Escape */
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape' && modalOpen) closeModal();
+        });
+
     })();
 
     /* ============================================================
@@ -2850,6 +3090,27 @@
         if (e.key === 'Escape' && mobileOpen) closeNav();
     });
 </script>
+
+<!-- ==========================================================
+     MODAL — Publicações & Casos
+     ========================================================== -->
+<div id="pub-modal" role="dialog" aria-modal="true" aria-label="Detalhes do caso">
+    <div class="pub-modal-bd" id="pub-modal-bd"></div>
+    <div class="pub-modal-card" id="pub-modal-card">
+        <div class="pub-modal-header">
+            <div class="pub-modal-meta">
+                <span class="pub-modal-cat"  id="pub-modal-cat"></span>
+                <span class="pub-modal-year" id="pub-modal-year"></span>
+            </div>
+            <button class="pub-modal-close" id="pub-modal-close" aria-label="Fechar">
+                <span></span><span></span>
+            </button>
+        </div>
+        <h3 class="pub-modal-title" id="pub-modal-title"></h3>
+        <div class="pub-modal-rule"  aria-hidden="true"></div>
+        <p  class="pub-modal-text"  id="pub-modal-text"></p>
+    </div>
+</div>
 
 </body>
 </html>
