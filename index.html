@@ -1187,6 +1187,326 @@
             .firma-title { font-size: clamp(28px, 8vw, 42px); }
             .firma-text-col { padding: 44px 20px 64px; }
         }
+
+        /* ================================================================
+           SEÇÃO 03 — ÁREAS DE ATUAÇÃO
+           ================================================================ */
+        #areas {
+            position: relative;
+            background: var(--color-bg-deep);
+            overflow: clip;
+        }
+
+        /* Intro — split assimétrico */
+        .areas-intro {
+            padding: 140px 158px 96px;
+            display: grid;
+            grid-template-columns: 54% 1fr;
+            align-items: end;
+            gap: 0 80px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Eyebrow — mesma linguagem */
+        .areas-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 48px;
+        }
+
+        .areas-eyebrow-rule {
+            display: block;
+            width: 44px; height: 1px;
+            background: var(--color-accent);
+            flex-shrink: 0;
+            transform: scaleX(0);
+            transform-origin: 0 50%;
+        }
+
+        .areas-eyebrow-text {
+            font-size: 8.5px;
+            font-weight: 500;
+            letter-spacing: 0.46em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(100%);
+        }
+
+        /* Título — mask reveal */
+        .areas-title {
+            font-family: var(--font-serif);
+            font-size: clamp(40px, 4.6vw, 70px);
+            font-weight: 300;
+            line-height: 1.06;
+            letter-spacing: -0.01em;
+            color: var(--color-text);
+        }
+
+        .a-mask-wrap {
+            display: block;
+            overflow: hidden;
+            padding-bottom: 0.05em;
+            margin-bottom: -0.03em;
+        }
+
+        .a-mask-inner {
+            display: inline-block;
+            transform: translateY(108%);
+            will-change: transform;
+        }
+
+        .areas-title em {
+            font-style: italic;
+            color: var(--color-accent);
+        }
+
+        /* Coluna direita — subtítulo + contador */
+        .areas-intro-right {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding-bottom: 4px;
+        }
+
+        .areas-sub {
+            font-size: 13px;
+            line-height: 1.95;
+            letter-spacing: 0.025em;
+            color: var(--color-text-sub);
+            max-width: 380px;
+            margin-bottom: 42px;
+            opacity: 0;
+            transform: translateY(22px);
+        }
+
+        .areas-count {
+            display: flex;
+            align-items: baseline;
+            gap: 14px;
+            padding-top: 24px;
+            border-top: 1px solid var(--color-primary-ghost);
+            opacity: 0;
+            transform: translateY(16px);
+        }
+
+        .areas-count-n {
+            font-family: var(--font-serif);
+            font-size: 50px;
+            font-weight: 300;
+            line-height: 1;
+            letter-spacing: -0.02em;
+            color: var(--color-text);
+        }
+
+        .areas-count-l {
+            font-size: 8px;
+            font-weight: 500;
+            letter-spacing: 0.34em;
+            text-transform: uppercase;
+            color: var(--color-text-sub);
+        }
+
+        /* ---- Lista ---- */
+        .areas-list {
+            position: relative;
+            z-index: 1;
+            border-top: 1px solid var(--color-primary-ghost);
+        }
+
+        .area-item {
+            position: relative;
+            border-bottom: 1px solid var(--color-primary-ghost);
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        /* Sweep de fundo da esquerda */
+        .area-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                100deg,
+                rgba(212, 175, 55, 0.048) 0%,
+                transparent 100%
+            );
+            transform: translateX(-101%);
+            transition: transform 0.65s var(--ease-expo-out);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Linha de acento vertical esquerda */
+        .area-item::after {
+            content: '';
+            position: absolute;
+            left: 0; top: 0;
+            width: 2px; height: 100%;
+            background: var(--color-accent);
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: transform 0.52s var(--ease-expo-out);
+        }
+
+        .area-item:hover::before,
+        .area-item.is-open::before { transform: translateX(0); }
+
+        .area-item:hover::after,
+        .area-item.is-open::after  { transform: scaleY(1); }
+
+        /* Linha interna — flex */
+        .area-inner {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 36px;
+            padding: 38px 158px;
+        }
+
+        .area-num {
+            font-family: var(--font-serif);
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 0.18em;
+            color: rgba(212, 175, 55, 0.28);
+            flex-shrink: 0;
+            min-width: 26px;
+            transition: color 0.45s var(--ease-smooth);
+        }
+
+        .area-item:hover .area-num,
+        .area-item.is-open .area-num { color: var(--color-accent); }
+
+        .area-name {
+            font-family: var(--font-serif);
+            font-size: clamp(26px, 3.1vw, 48px);
+            font-weight: 300;
+            letter-spacing: -0.01em;
+            line-height: 1.1;
+            color: rgba(235, 231, 221, 0.58);
+            transition: color 0.45s var(--ease-smooth);
+        }
+
+        .area-item:hover .area-name,
+        .area-item.is-open .area-name { color: var(--color-text); }
+
+        .area-tag {
+            font-size: 7.5px;
+            font-weight: 500;
+            letter-spacing: 0.36em;
+            text-transform: uppercase;
+            color: rgba(212, 175, 55, 0.45);
+            flex-shrink: 0;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: opacity 0.42s, transform 0.42s var(--ease-expo-out);
+        }
+
+        .area-item:hover .area-tag,
+        .area-item.is-open .area-tag { opacity: 1; transform: translateX(0); }
+
+        .area-line {
+            flex: 1;
+            height: 1px;
+            background: var(--color-primary-ghost);
+            transform-origin: left;
+            transition: transform 0.55s var(--ease-expo-out), opacity 0.55s;
+        }
+
+        .area-item:hover .area-line,
+        .area-item.is-open .area-line { transform: scaleX(0.22); opacity: 0.3; }
+
+        .area-arrow {
+            flex-shrink: 0;
+            width: 42px; height: 42px;
+            border: 1px solid rgba(212, 175, 55, 0.18);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-accent);
+            opacity: 0;
+            transform: translateX(-18px) scale(0.75);
+            transition:
+                opacity   0.42s var(--ease-expo-out),
+                transform 0.42s var(--ease-expo-out),
+                border-color 0.42s;
+        }
+
+        .area-item:hover .area-arrow,
+        .area-item.is-open .area-arrow {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+            border-color: rgba(212, 175, 55, 0.48);
+        }
+
+        /* Descrição expansível */
+        .area-desc-wrap {
+            height: 0;
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* padding-left = container(158) + num(26) + gap(36) = 220px — alinha com area-name */
+        .area-desc {
+            padding: 0 158px 36px 220px;
+            font-size: 12.5px;
+            line-height: 1.95;
+            letter-spacing: 0.025em;
+            color: var(--color-text-sub);
+            max-width: 740px;
+        }
+
+        /* ---- Áreas — Tablet ---- */
+        @media (min-width: 769px) and (max-width: 1199px) {
+            .areas-intro {
+                padding: 100px 48px 72px;
+                gap: 0 60px;
+                grid-template-columns: 52% 1fr;
+            }
+            .areas-title  { font-size: clamp(34px, 4vw, 54px); }
+            .areas-sub    { font-size: 12px; max-width: 100%; }
+            .areas-count-n { font-size: 40px; }
+            .area-inner   { padding: 32px 48px; gap: 28px; }
+            .area-name    { font-size: clamp(22px, 2.8vw, 38px); }
+            .area-tag     { font-size: 7px; }
+            /* padding-left = container(48) + num(26) + gap(28) = 102px */
+            .area-desc    { padding: 0 48px 28px 102px; max-width: 100%; }
+        }
+
+        /* ---- Áreas — Mobile ---- */
+        @media (max-width: 768px) {
+            #areas { overflow: visible; }
+
+            .areas-intro {
+                grid-template-columns: 1fr;
+                padding: 72px 24px 52px;
+                gap: 36px 0;
+            }
+
+            .areas-eyebrow  { margin-bottom: 32px; }
+            .areas-title    { font-size: clamp(32px, 8.5vw, 50px); }
+            .areas-sub      { font-size: 12.5px; max-width: 100%; margin-bottom: 28px; }
+            .areas-count-n  { font-size: 40px; }
+
+            .area-inner     { padding: 24px 24px; gap: 16px; }
+            .area-name      { font-size: clamp(20px, 5.8vw, 30px); }
+            .area-tag       { display: none; }
+            .area-arrow     { width: 36px; height: 36px; }
+            .area-desc      { padding: 0 24px 24px 24px; max-width: 100%; font-size: 12px; }
+        }
+
+        @media (max-width: 380px) {
+            .areas-intro { padding: 64px 20px 44px; }
+            .area-inner  { padding: 20px 20px; gap: 12px; }
+            .area-desc   { padding: 0 20px 20px 20px; }
+        }
     </style>
 </head>
 
@@ -1451,6 +1771,153 @@
 </section><!-- /#firma -->
 
 <!-- ==========================================================
+     SEÇÃO 03 — ÁREAS DE ATUAÇÃO
+     ========================================================== -->
+<section id="areas" aria-label="Áreas de Atuação">
+
+    <span class="s-num" aria-hidden="true">03</span>
+
+    <!-- Intro split -->
+    <div class="areas-intro">
+
+        <div class="areas-intro-left">
+            <div class="areas-eyebrow">
+                <span class="areas-eyebrow-rule"></span>
+                <span class="areas-eyebrow-text">Áreas de Atuação · Expertise</span>
+            </div>
+
+            <h2 class="areas-title"
+                aria-label="Onde a Técnica Encontra a Estratégia.">
+                <span class="a-mask-wrap"><span class="a-mask-inner">Onde a Técnica</span></span>
+                <span class="a-mask-wrap"><span class="a-mask-inner">Encontra a</span></span>
+                <span class="a-mask-wrap"><span class="a-mask-inner"><em>Estratégia.</em></span></span>
+            </h2>
+        </div>
+
+        <div class="areas-intro-right">
+            <p class="areas-sub">
+                Atuamos nas esferas do direito de maior complexidade,
+                onde precisão técnica e visão estratégica são igualmente
+                indispensáveis — e onde cada decisão pode definir legados.
+            </p>
+            <div class="areas-count">
+                <span class="areas-count-n">06</span>
+                <span class="areas-count-l">Especialidades</span>
+            </div>
+        </div>
+
+    </div><!-- /.areas-intro -->
+
+    <!-- Lista -->
+    <div class="areas-list" id="areas-list">
+
+        <div class="area-item">
+            <div class="area-inner">
+                <span class="area-num">01</span>
+                <h3 class="area-name">Direito Empresarial</h3>
+                <span class="area-tag">Corporate Law</span>
+                <div class="area-line" aria-hidden="true"></div>
+                <div class="area-arrow" aria-hidden="true">
+                    <svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 5H13M9 1L13 5L9 9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="area-desc-wrap">
+                <p class="area-desc">Assessoria estratégica para empresas em todas as fases do ciclo de negócios — constituição, expansão e reestruturação. Contratos de alta complexidade, governança corporativa e proteção patrimonial com rigor técnico máximo.</p>
+            </div>
+        </div>
+
+        <div class="area-item">
+            <div class="area-inner">
+                <span class="area-num">02</span>
+                <h3 class="area-name">Direito Tributário</h3>
+                <span class="area-tag">Tax Law</span>
+                <div class="area-line" aria-hidden="true"></div>
+                <div class="area-arrow" aria-hidden="true">
+                    <svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 5H13M9 1L13 5L9 9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="area-desc-wrap">
+                <p class="area-desc">Planejamento tributário preventivo e contencioso fiscal de alta complexidade. Atuação em recursos administrativos e judiciais, com foco em recuperação de créditos tributários e redução estrutural de passivos fiscais.</p>
+            </div>
+        </div>
+
+        <div class="area-item">
+            <div class="area-inner">
+                <span class="area-num">03</span>
+                <h3 class="area-name">Criminal de Alto Padrão</h3>
+                <span class="area-tag">Criminal Law</span>
+                <div class="area-line" aria-hidden="true"></div>
+                <div class="area-arrow" aria-hidden="true">
+                    <svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 5H13M9 1L13 5L9 9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="area-desc-wrap">
+                <p class="area-desc">Defesa técnica e ética em crimes de colarinho branco, lavagem de capitais e corrupção. Atuação discreta, sigilosa e com profundo domínio dos meandros do processo penal — protegemos reputações além de clientes.</p>
+            </div>
+        </div>
+
+        <div class="area-item">
+            <div class="area-inner">
+                <span class="area-num">04</span>
+                <h3 class="area-name">Fusões &amp; Aquisições</h3>
+                <span class="area-tag">M&amp;A</span>
+                <div class="area-line" aria-hidden="true"></div>
+                <div class="area-arrow" aria-hidden="true">
+                    <svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 5H13M9 1L13 5L9 9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="area-desc-wrap">
+                <p class="area-desc">Due diligence jurídica, estruturação e negociação de operações M&amp;A para empresas nacionais e multinacionais. Cada transação conduzida com agilidade cirúrgica e confidencialidade absoluta.</p>
+            </div>
+        </div>
+
+        <div class="area-item">
+            <div class="area-inner">
+                <span class="area-num">05</span>
+                <h3 class="area-name">Reestruturação Societária</h3>
+                <span class="area-tag">Corporate Restructuring</span>
+                <div class="area-line" aria-hidden="true"></div>
+                <div class="area-arrow" aria-hidden="true">
+                    <svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 5H13M9 1L13 5L9 9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="area-desc-wrap">
+                <p class="area-desc">Reorganização de estruturas societárias complexas com foco em eficiência tributária, planejamento sucessório e proteção patrimonial de longo prazo. Do mapa estratégico à execução, cada etapa com precisão total.</p>
+            </div>
+        </div>
+
+        <div class="area-item">
+            <div class="area-inner">
+                <span class="area-num">06</span>
+                <h3 class="area-name">Compliance &amp; Regulatório</h3>
+                <span class="area-tag">Compliance</span>
+                <div class="area-line" aria-hidden="true"></div>
+                <div class="area-arrow" aria-hidden="true">
+                    <svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 5H13M9 1L13 5L9 9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="area-desc-wrap">
+                <p class="area-desc">Implementação e auditoria de programas de integridade, LGPD, anticorrupção e regulatório setorial. Identificamos e neutralizamos riscos legais e reputacionais antes que se tornem problemas irreversíveis.</p>
+            </div>
+        </div>
+
+    </div><!-- /.areas-list -->
+
+</section><!-- /#areas -->
+
+<!-- ==========================================================
      SCRIPTS
      ========================================================== -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -1507,7 +1974,7 @@
             requestAnimationFrame(trackRing);
         })();
 
-        document.querySelectorAll('a, button').forEach(el => {
+        document.querySelectorAll('a, button, .area-item').forEach(el => {
             el.addEventListener('mouseenter', () => {
                 gsap.to(ring, { scale: 1.75, opacity: 0.38, duration: 0.35 });
                 gsap.to(dot,  { scale: 0.4,                 duration: 0.35 });
@@ -1713,6 +2180,93 @@
             stagger: 0.14,
             ease: 'power3.out',
             scrollTrigger: { trigger: '.firma-signature', start: 'top 88%' }
+        });
+
+    })();
+
+    /* ============================================================
+       SEÇÃO 03 — ÁREAS: ScrollTrigger + hover / touch
+       ============================================================ */
+    (function initAreas() {
+
+        /* Eyebrow */
+        const areasEyeTL = gsap.timeline({
+            scrollTrigger: { trigger: '.areas-eyebrow', start: 'top 82%' }
+        });
+        areasEyeTL
+            .to('.areas-eyebrow-rule', { scaleX: 1, duration: 0.7, ease: 'power3.inOut' })
+            .to('.areas-eyebrow-text', { y: 0, opacity: 1, duration: 0.65 }, '-=0.3');
+
+        /* Título — mask reveal */
+        gsap.to('.a-mask-inner', {
+            y: '0%',
+            duration: 1.05,
+            stagger: 0.10,
+            ease: 'power4.out',
+            scrollTrigger: { trigger: '.areas-title', start: 'top 80%' }
+        });
+
+        /* Subtítulo + contador */
+        gsap.to('.areas-sub', {
+            opacity: 1, y: 0,
+            duration: 0.88,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: '.areas-sub', start: 'top 82%' }
+        });
+
+        gsap.to('.areas-count', {
+            opacity: 1, y: 0,
+            duration: 0.72,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: '.areas-count', start: 'top 88%' }
+        });
+
+        /* Lista — stagger reveal ao entrar na viewport */
+        gsap.from('.area-item', {
+            y: 32,
+            opacity: 0,
+            duration: 0.72,
+            stagger: 0.08,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: '.areas-list', start: 'top 84%' }
+        });
+
+        /* Hover (desktop) / tap (touch) — expande descrição via GSAP */
+        const areaItems = document.querySelectorAll('.area-item');
+
+        areaItems.forEach(item => {
+            const wrap = item.querySelector('.area-desc-wrap');
+
+            if (isTouch) {
+                item.addEventListener('click', () => {
+                    const isOpen = item.classList.contains('is-open');
+
+                    /* Fecha todos os demais */
+                    areaItems.forEach(other => {
+                        if (other !== item && other.classList.contains('is-open')) {
+                            other.classList.remove('is-open');
+                            gsap.to(other.querySelector('.area-desc-wrap'), {
+                                height: 0, duration: 0.38, ease: 'power3.inOut'
+                            });
+                        }
+                    });
+
+                    if (isOpen) {
+                        item.classList.remove('is-open');
+                        gsap.to(wrap, { height: 0, duration: 0.42, ease: 'power3.inOut' });
+                    } else {
+                        item.classList.add('is-open');
+                        gsap.to(wrap, { height: 'auto', duration: 0.55, ease: 'power3.out' });
+                    }
+                });
+            } else {
+                item.addEventListener('mouseenter', () => {
+                    gsap.to(wrap, { height: 'auto', duration: 0.55, ease: 'power3.out' });
+                });
+                item.addEventListener('mouseleave', () => {
+                    gsap.to(wrap, { height: 0, duration: 0.38, ease: 'power3.inOut' });
+                });
+            }
         });
 
     })();
