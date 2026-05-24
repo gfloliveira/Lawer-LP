@@ -1981,7 +1981,230 @@
         }
 
         /* ================================================================
-           SEÇÃO 05 — CONTATO
+           SEÇÃO 05 — DEPOIMENTOS
+           ================================================================ */
+        #depoimentos {
+            position: relative;
+            background: var(--color-bg);
+            overflow: clip;
+        }
+
+        .depo-inner {
+            padding: 140px 158px 120px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .depo-header { margin-bottom: 80px; }
+
+        /* Eyebrow */
+        .depo-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 48px;
+        }
+
+        .depo-eyebrow-rule {
+            display: block;
+            width: 44px; height: 1px;
+            background: var(--color-accent);
+            flex-shrink: 0;
+            transform: scaleX(0);
+            transform-origin: 0 50%;
+        }
+
+        .depo-eyebrow-text {
+            font-size: 8.5px;
+            font-weight: 500;
+            letter-spacing: 0.46em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(100%);
+        }
+
+        /* Título — mask reveal */
+        .depo-title {
+            font-family: var(--font-serif);
+            font-size: clamp(38px, 4.2vw, 64px);
+            font-weight: 300;
+            line-height: 1.06;
+            letter-spacing: -0.01em;
+            color: var(--color-text);
+        }
+
+        .d-mask-wrap {
+            display: block;
+            overflow: hidden;
+            padding-bottom: 0.05em;
+            margin-bottom: -0.03em;
+        }
+
+        .d-mask-inner {
+            display: inline-block;
+            transform: translateY(108%);
+            will-change: transform;
+        }
+
+        .depo-title em {
+            font-style: italic;
+            color: var(--color-accent);
+        }
+
+        /* Stage: grid empilhado — altura = maior card, troca só por opacity */
+        .depo-stage {
+            display: grid;
+            margin-bottom: 52px;
+        }
+
+        .depo-card {
+            grid-area: 1 / 1;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .depo-card.is-active { pointer-events: auto; }
+
+        /* Aspas decorativas */
+        .depo-quote-mark {
+            display: block;
+            font-family: var(--font-serif);
+            font-size: 96px;
+            line-height: 0.68;
+            color: var(--color-accent);
+            opacity: 0.28;
+            margin-bottom: 28px;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        /* Citação */
+        .depo-quote-text {
+            font-family: var(--font-serif);
+            font-size: clamp(18px, 2vw, 24px);
+            font-weight: 300;
+            font-style: italic;
+            line-height: 1.80;
+            letter-spacing: 0.005em;
+            color: var(--color-text);
+            max-width: 820px;
+            margin: 0 0 44px;
+        }
+
+        /* Autor */
+        .depo-author {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+
+        .depo-author-rule {
+            width: 32px; height: 1px;
+            background: var(--color-accent);
+            flex-shrink: 0;
+            opacity: 0.65;
+        }
+
+        .depo-author-name {
+            font-family: var(--font-sans);
+            font-size: 9px;
+            font-weight: 600;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--color-text);
+            margin-bottom: 6px;
+        }
+
+        .depo-author-role {
+            font-family: var(--font-sans);
+            font-size: 9px;
+            font-weight: 400;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--color-text-sub);
+        }
+
+        /* Controles */
+        .depo-controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .depo-arrow {
+            width: 46px; height: 46px;
+            border: 1px solid rgba(212, 175, 55, 0.22);
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--color-accent);
+            flex-shrink: 0;
+            transition: border-color 0.35s var(--ease-expo-out),
+                        background   0.35s var(--ease-expo-out);
+        }
+
+        .depo-arrow:hover {
+            border-color: var(--color-accent);
+            background: rgba(212, 175, 55, 0.06);
+        }
+
+        .depo-dots {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .depo-dot {
+            width: 5px; height: 5px;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.22);
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            transition: background 0.38s, transform 0.38s;
+        }
+
+        .depo-dot.is-active {
+            background: var(--color-accent);
+            transform: scale(1.5);
+        }
+
+        .depo-counter {
+            margin-left: auto;
+            font-family: var(--font-sans);
+            font-size: 8px;
+            font-weight: 500;
+            letter-spacing: 0.35em;
+            color: var(--color-text-sub);
+        }
+
+        /* ---- Depoimentos — Tablet ---- */
+        @media (min-width: 769px) and (max-width: 1199px) {
+            .depo-inner      { padding: 100px 48px 100px; }
+            .depo-title      { font-size: clamp(34px, 4vw, 54px); }
+            .depo-quote-text { font-size: clamp(16px, 2.2vw, 22px); }
+        }
+
+        /* ---- Depoimentos — Mobile ---- */
+        @media (max-width: 768px) {
+            #depoimentos     { overflow: visible; }
+            .depo-inner      { padding: 72px 24px 80px; }
+            .depo-header     { margin-bottom: 52px; }
+            .depo-title      { font-size: clamp(32px, 8.5vw, 50px); }
+            .depo-quote-text { font-size: clamp(16px, 5vw, 20px); max-width: 100%; }
+            .depo-counter    { display: none; }
+        }
+
+        @media (max-width: 380px) {
+            .depo-inner { padding: 64px 20px 72px; }
+        }
+
+        /* ================================================================
+           SEÇÃO 06 — CONTATO
            ================================================================ */
         #contato {
             position: relative;
@@ -2445,6 +2668,7 @@
         <li><a href="#firma">A Firma</a></li>
         <li><a href="#areas">Áreas de Atuação</a></li>
         <li><a href="#publicacoes">Publicações</a></li>
+        <li><a href="#depoimentos">Depoimentos</a></li>
         <li><a href="#contato">Contato</a></li>
     </ul>
 
@@ -2468,6 +2692,7 @@
         <li><a href="#firma">A Firma</a></li>
         <li><a href="#areas">Áreas de Atuação</a></li>
         <li><a href="#publicacoes">Publicações</a></li>
+        <li><a href="#depoimentos">Depoimentos</a></li>
         <li><a href="#contato">Contato</a></li>
     </ul>
     <a href="tel:+551199990000" class="nav-mobile-tel">+55 (11) 9999‑0000</a>
@@ -2977,11 +3202,119 @@
 </div>
 
 <!-- ==========================================================
-     SEÇÃO 05 — CONTATO
+     SEÇÃO 05 — DEPOIMENTOS
+     ========================================================== -->
+<section id="depoimentos" aria-label="Depoimentos">
+
+    <span class="s-num" aria-hidden="true">05</span>
+
+    <div class="depo-inner">
+
+        <div class="depo-header">
+            <div class="depo-eyebrow">
+                <span class="depo-eyebrow-rule"></span>
+                <span class="depo-eyebrow-text">Depoimentos · Clientes</span>
+            </div>
+            <h2 class="depo-title" aria-label="A Confiança de Quem Viveu.">
+                <span class="d-mask-wrap"><span class="d-mask-inner">A Confiança de</span></span>
+                <span class="d-mask-wrap"><span class="d-mask-inner">Quem <em>Viveu.</em></span></span>
+            </h2>
+        </div>
+
+        <div class="depo-slider">
+
+            <div class="depo-stage" id="depo-stage" aria-live="polite">
+
+                <article class="depo-card is-active" aria-label="Depoimento 1 de 4">
+                    <span class="depo-quote-mark" aria-hidden="true">"</span>
+                    <blockquote class="depo-quote-text">
+                        A A&amp;S Advocacia transformou uma situação de alto risco em uma operação conduzida com precisão absoluta. A expertise jurídica e a atenção ao detalhe da equipe foram determinantes para o êxito da transação.
+                    </blockquote>
+                    <div class="depo-author">
+                        <span class="depo-author-rule" aria-hidden="true"></span>
+                        <div>
+                            <p class="depo-author-name">Carlos R.</p>
+                            <p class="depo-author-role">CEO · Grupo Empresarial</p>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="depo-card" aria-label="Depoimento 2 de 4">
+                    <span class="depo-quote-mark" aria-hidden="true">"</span>
+                    <blockquote class="depo-quote-text">
+                        A recuperação de créditos tributários que julgávamos inviável foi conduzida com uma estratégia técnica impecável. A equipe demonstrou domínio ímpar da legislação e sensibilidade genuína aos impactos do negócio.
+                    </blockquote>
+                    <div class="depo-author">
+                        <span class="depo-author-rule" aria-hidden="true"></span>
+                        <div>
+                            <p class="depo-author-name">Fernanda M.</p>
+                            <p class="depo-author-role">Diretora Financeira · Conglomerado Varejista</p>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="depo-card" aria-label="Depoimento 3 de 4">
+                    <span class="depo-quote-mark" aria-hidden="true">"</span>
+                    <blockquote class="depo-quote-text">
+                        Em um processo trabalhista de grande repercussão, a condução estratégica foi decisiva. Profissionalismo, transparência e resultados que superaram nossas expectativas. Uma parceria que recomendo com total convicção.
+                    </blockquote>
+                    <div class="depo-author">
+                        <span class="depo-author-rule" aria-hidden="true"></span>
+                        <div>
+                            <p class="depo-author-name">Eduardo T.</p>
+                            <p class="depo-author-role">Diretor de Operações · Indústria Regional</p>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="depo-card" aria-label="Depoimento 4 de 4">
+                    <span class="depo-quote-mark" aria-hidden="true">"</span>
+                    <blockquote class="depo-quote-text">
+                        Confiamos questões de grande complexidade à A&amp;S. A discrição, o rigor técnico e a capacidade de antecipar cenários adversos nos deram a segurança necessária para as decisões mais importantes da empresa.
+                    </blockquote>
+                    <div class="depo-author">
+                        <span class="depo-author-rule" aria-hidden="true"></span>
+                        <div>
+                            <p class="depo-author-name">Patrícia L.</p>
+                            <p class="depo-author-role">Diretora Jurídica · Incorporadora Nacional</p>
+                        </div>
+                    </div>
+                </article>
+
+            </div><!-- /.depo-stage -->
+
+            <div class="depo-controls" aria-label="Navegação dos depoimentos">
+                <button class="depo-arrow depo-arrow--prev" aria-label="Depoimento anterior">
+                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+                        <path d="M9.5 3L5 7.5l4.5 4.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="depo-dots" role="tablist" aria-label="Selecionar depoimento">
+                    <button class="depo-dot is-active" role="tab" aria-selected="true"  aria-label="Depoimento 1"></button>
+                    <button class="depo-dot"           role="tab" aria-selected="false" aria-label="Depoimento 2"></button>
+                    <button class="depo-dot"           role="tab" aria-selected="false" aria-label="Depoimento 3"></button>
+                    <button class="depo-dot"           role="tab" aria-selected="false" aria-label="Depoimento 4"></button>
+                </div>
+                <button class="depo-arrow depo-arrow--next" aria-label="Próximo depoimento">
+                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+                        <path d="M5.5 3L10 7.5 5.5 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <span class="depo-counter" aria-hidden="true">01 / 04</span>
+            </div>
+
+        </div><!-- /.depo-slider -->
+
+    </div><!-- /.depo-inner -->
+
+</section><!-- /#depoimentos -->
+
+<!-- ==========================================================
+     SEÇÃO 06 — CONTATO
      ========================================================== -->
 <section id="contato" aria-label="Contato">
 
-    <span class="s-num" aria-hidden="true">05</span>
+    <span class="s-num" aria-hidden="true">06</span>
 
     <div class="contato-inner">
 
@@ -3114,6 +3447,7 @@
                 <li><a href="#firma">A Firma</a></li>
                 <li><a href="#areas">Áreas de Atuação</a></li>
                 <li><a href="#publicacoes">Publicações</a></li>
+                <li><a href="#depoimentos">Depoimentos</a></li>
                 <li><a href="#contato">Contato</a></li>
             </ul>
         </nav>
@@ -3650,7 +3984,109 @@
     })();
 
     /* ============================================================
-       SEÇÃO 05 — CONTATO + FOOTER
+       SEÇÃO 05 — DEPOIMENTOS: slider GSAP + scroll reveals
+       ============================================================ */
+    (function initDepoimentos() {
+
+        const cards   = document.querySelectorAll('.depo-card');
+        const dots    = document.querySelectorAll('.depo-dot');
+        const prevBtn = document.querySelector('.depo-arrow--prev');
+        const nextBtn = document.querySelector('.depo-arrow--next');
+        const counter = document.querySelector('.depo-counter');
+        const total   = cards.length;
+        let   current = 0;
+        let   busy    = false;
+
+        /* Inicializa: primeiro card visível via GSAP (CSS tem opacity:0 em todos) */
+        gsap.set(cards[0], { opacity: 1 });
+
+        function updateUI() {
+            if (counter) {
+                counter.textContent =
+                    String(current + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
+            }
+            dots.forEach((d, i) => {
+                d.classList.toggle('is-active', i === current);
+                d.setAttribute('aria-selected', i === current ? 'true' : 'false');
+            });
+        }
+
+        function goTo(i) {
+            if (busy || i === current) return;
+            busy = true;
+
+            const out  = cards[current];
+            const into = cards[i];
+
+            /* Prepara o card entrante (y levemente deslocado para cima) */
+            gsap.set(into, { opacity: 0, y: 18 });
+            into.classList.add('is-active');
+
+            gsap.timeline({
+                onComplete: () => {
+                    out.classList.remove('is-active');
+                    gsap.set(out, { opacity: 0, y: 0 });
+                    current = i;
+                    busy    = false;
+                    updateUI();
+                }
+            })
+            .to(out,  { opacity: 0, y: -12, duration: 0.30, ease: 'power2.in' })
+            .to(into, { opacity: 1, y: 0,   duration: 0.52, ease: 'power3.out' }, '-=0.08');
+        }
+
+        prevBtn.addEventListener('click', () => goTo((current - 1 + total) % total));
+        nextBtn.addEventListener('click', () => goTo((current + 1) % total));
+        dots.forEach((d, i) => d.addEventListener('click', () => goTo(i)));
+
+        /* Teclado — setas */
+        document.addEventListener('keydown', e => {
+            if (e.key === 'ArrowLeft')  prevBtn.click();
+            if (e.key === 'ArrowRight') nextBtn.click();
+        });
+
+        /* Touch swipe */
+        let touchX = 0;
+        const stage = document.getElementById('depo-stage');
+        stage.addEventListener('touchstart', e => {
+            touchX = e.changedTouches[0].clientX;
+        }, { passive: true });
+        stage.addEventListener('touchend', e => {
+            const delta = touchX - e.changedTouches[0].clientX;
+            if (Math.abs(delta) > 48) {
+                delta > 0 ? nextBtn.click() : prevBtn.click();
+            }
+        }, { passive: true });
+
+        updateUI();
+
+        /* ---- Scroll reveals ---- */
+        const depoEyeTL = gsap.timeline({
+            scrollTrigger: { trigger: '.depo-eyebrow', start: 'top 84%' }
+        });
+        depoEyeTL
+            .to('.depo-eyebrow-rule', { scaleX: 1, duration: 0.70, ease: 'power3.inOut' })
+            .to('.depo-eyebrow-text', { y: 0, opacity: 1, duration: 0.65 }, '-=0.30');
+
+        gsap.to('.d-mask-inner', {
+            y: '0%', duration: 1.05, ease: 'power4.out', stagger: 0.10,
+            scrollTrigger: { trigger: '.depo-title', start: 'top 82%' }
+        });
+
+        gsap.from('.depo-stage', {
+            opacity: 0, y: 36, duration: 0.90, ease: 'power3.out',
+            scrollTrigger: { trigger: '.depo-stage', start: 'top 84%' }
+        });
+
+        gsap.from('.depo-controls', {
+            opacity: 0, y: 18, duration: 0.72, ease: 'power3.out',
+            scrollTrigger: { trigger: '.depo-controls', start: 'top 92%' }
+        });
+
+    })();
+
+    /* ============================================================
+       SEÇÃO 06 — CONTATO + FOOTER
        ============================================================ */
     (function initContato() {
 
