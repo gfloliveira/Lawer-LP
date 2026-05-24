@@ -2182,6 +2182,22 @@
             color: var(--color-text-sub);
         }
 
+        /* Progress bar — linha dourada de avanço automático */
+        .depo-progress {
+            width: 100%;
+            height: 1px;
+            background: rgba(212, 175, 55, 0.10);
+            margin-top: 24px;
+            overflow: hidden;
+        }
+
+        .depo-progress-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--color-accent);
+            opacity: 0.55;
+        }
+
         /* ---- Depoimentos — Tablet ---- */
         @media (min-width: 769px) and (max-width: 1199px) {
             .depo-inner      { padding: 100px 48px 100px; }
@@ -2197,6 +2213,7 @@
             .depo-title      { font-size: clamp(32px, 8.5vw, 50px); }
             .depo-quote-text { font-size: clamp(16px, 5vw, 20px); max-width: 100%; }
             .depo-counter    { display: none; }
+            .depo-progress   { display: none; }
         }
 
         @media (max-width: 380px) {
@@ -3354,6 +3371,10 @@
                 <span class="depo-counter" aria-hidden="true">01 / 04</span>
             </div>
 
+            <div class="depo-progress" aria-hidden="true">
+                <div class="depo-progress-fill" id="depo-progress-fill"></div>
+            </div>
+
         </div><!-- /.depo-slider -->
 
     </div><!-- /.depo-inner -->
@@ -4042,7 +4063,7 @@
     })();
 
     /* ============================================================
-       SEÇÃO 05 — DEPOIMENTOS: slider GSAP + scroll reveals
+       SEÇÃO 05 — DEPOIMENTOS: slider GSAP + auto-advance + scroll reveals
        ============================================================ */
     (function initDepoimentos() {
 
@@ -4051,13 +4072,43 @@
         const prevBtn = document.querySelector('.depo-arrow--prev');
         const nextBtn = document.querySelector('.depo-arrow--next');
         const counter = document.querySelector('.depo-counter');
+        const fill    = document.getElementById('depo-progress-fill');
+        const slider  = document.querySelector('.depo-slider');
         const total   = cards.length;
         let   current = 0;
         let   busy    = false;
+        const AUTO_DUR = 7;
+        let   progressTw = null;
 
-        /* Inicializa: primeiro card visível via GSAP (CSS tem opacity:0 em todos) */
+        /* Primeiro card visível (CSS define opacity:0 em todos) */
         gsap.set(cards[0], { opacity: 1 });
 
+        /* ---- Progress bar ---- */
+        function startProgress() {
+            if (isTouch || !fill) return;
+            killProgress();
+            gsap.set(fill, { width: '0%' });
+            progressTw = gsap.to(fill, {
+                width: '100%',
+                duration: AUTO_DUR,
+                ease: 'none',
+                onComplete: () => goTo((current + 1) % total)
+            });
+        }
+
+        function killProgress() {
+            if (progressTw) { progressTw.kill(); progressTw = null; }
+            if (fill) gsap.set(fill, { width: '0%' });
+        }
+
+        function pauseProgress()  { if (progressTw) progressTw.pause();  }
+        function resumeProgress() { if (progressTw) progressTw.resume(); }
+
+        /* ---- Hover pause / resume ---- */
+        slider.addEventListener('mouseenter', pauseProgress);
+        slider.addEventListener('mouseleave', resumeProgress);
+
+        /* ---- UI ---- */
         function updateUI() {
             if (counter) {
                 counter.textContent =
@@ -4069,14 +4120,15 @@
             });
         }
 
+        /* ---- Transição de slide ---- */
         function goTo(i) {
             if (busy || i === current) return;
             busy = true;
+            killProgress();
 
             const out  = cards[current];
             const into = cards[i];
 
-            /* Prepara o card entrante (y levemente deslocado para cima) */
             gsap.set(into, { opacity: 0, y: 18 });
             into.classList.add('is-active');
 
@@ -4087,12 +4139,14 @@
                     current = i;
                     busy    = false;
                     updateUI();
+                    startProgress();
                 }
             })
             .to(out,  { opacity: 0, y: -12, duration: 0.30, ease: 'power2.in' })
             .to(into, { opacity: 1, y: 0,   duration: 0.52, ease: 'power3.out' }, '-=0.08');
         }
 
+        /* ---- Controles ---- */
         prevBtn.addEventListener('click', () => goTo((current - 1 + total) % total));
         nextBtn.addEventListener('click', () => goTo((current + 1) % total));
         dots.forEach((d, i) => d.addEventListener('click', () => goTo(i)));
@@ -4111,9 +4165,7 @@
         }, { passive: true });
         stage.addEventListener('touchend', e => {
             const delta = touchX - e.changedTouches[0].clientX;
-            if (Math.abs(delta) > 48) {
-                delta > 0 ? nextBtn.click() : prevBtn.click();
-            }
+            if (Math.abs(delta) > 48) delta > 0 ? nextBtn.click() : prevBtn.click();
         }, { passive: true });
 
         updateUI();
@@ -4131,8 +4183,10 @@
             scrollTrigger: { trigger: '.depo-title', start: 'top 82%' }
         });
 
+        /* Stage reveal — auto-advance arranca após a entrada completar */
         gsap.from('.depo-stage', {
             opacity: 0, y: 36, duration: 0.90, ease: 'power3.out',
+            onComplete: startProgress,
             scrollTrigger: { trigger: '.depo-stage', start: 'top 84%' }
         });
 
