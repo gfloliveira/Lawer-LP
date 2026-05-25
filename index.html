@@ -2212,7 +2212,6 @@
             .depo-title      { font-size: clamp(32px, 8.5vw, 50px); }
             .depo-quote-text { font-size: clamp(16px, 5vw, 20px); max-width: 100%; }
             .depo-counter    { display: none; }
-            .depo-progress   { display: none; }
         }
 
         @media (max-width: 380px) {
@@ -4084,7 +4083,7 @@
 
         /* ---- Progress bar ---- */
         function startProgress() {
-            if (isTouch || !fill) return;
+            if (!fill) return;
             killProgress();
             gsap.set(fill, { width: '0%' });
             progressTw = gsap.to(fill, {
