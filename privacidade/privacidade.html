@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Política de Privacidade — [NOME DO ESCRITÓRIO]</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --color-bg:       #0B1320;
+            --color-bg-deep:  #070E1C;
+            --color-accent:   #D4AF37;
+            --color-text:     #EBE7DD;
+            --color-text-sub: rgba(235, 231, 221, 0.52);
+            --color-ghost:    rgba(212, 175, 55, 0.08);
+            --font-serif:     'Cormorant Garamond', Georgia, serif;
+            --font-sans:      'Montserrat', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--color-bg-deep);
+            color: var(--color-text);
+            font-family: var(--font-sans);
+            font-size: 14px;
+            font-weight: 300;
+            line-height: 1.85;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ---- Header ---- */
+        .pp-header {
+            border-bottom: 1px solid var(--color-ghost);
+            padding: 28px 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .pp-logo {
+            font-family: var(--font-serif);
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            color: var(--color-text);
+            text-decoration: none;
+        }
+
+        .pp-logo b { color: var(--color-accent); }
+
+        .pp-back {
+            font-size: 8px;
+            font-weight: 500;
+            letter-spacing: 0.38em;
+            text-transform: uppercase;
+            color: var(--color-text-sub);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: color 0.3s;
+        }
+
+        .pp-back:hover { color: var(--color-accent); }
+
+        .pp-back::before {
+            content: '';
+            display: block;
+            width: 18px; height: 1px;
+            background: currentColor;
+        }
+
+        /* ---- Conteúdo ---- */
+        .pp-wrap {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 80px 40px 120px;
+        }
+
+        .pp-eyebrow {
+            font-size: 8px;
+            font-weight: 500;
+            letter-spacing: 0.42em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            margin-bottom: 28px;
+        }
+
+        .pp-title {
+            font-family: var(--font-serif);
+            font-size: clamp(36px, 5vw, 56px);
+            font-weight: 300;
+            line-height: 1.08;
+            letter-spacing: -0.01em;
+            color: var(--color-text);
+            margin-bottom: 16px;
+        }
+
+        .pp-updated {
+            font-size: 9px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--color-text-sub);
+            margin-bottom: 64px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid var(--color-ghost);
+        }
+
+        /* Seções */
+        .pp-section {
+            margin-bottom: 52px;
+        }
+
+        .pp-section-title {
+            font-family: var(--font-serif);
+            font-size: 22px;
+            font-weight: 400;
+            color: var(--color-text);
+            margin-bottom: 18px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--color-ghost);
+        }
+
+        .pp-section-num {
+            color: var(--color-accent);
+            margin-right: 8px;
+        }
+
+        .pp-text {
+            color: var(--color-text-sub);
+            margin-bottom: 14px;
+        }
+
+        .pp-text:last-child { margin-bottom: 0; }
+
+        .pp-list {
+            list-style: none;
+            color: var(--color-text-sub);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .pp-list li {
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .pp-list li::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 11px;
+            width: 6px; height: 1px;
+            background: var(--color-accent);
+            opacity: 0.6;
+        }
+
+        .pp-highlight {
+            background: rgba(212, 175, 55, 0.04);
+            border-left: 2px solid rgba(212, 175, 55, 0.3);
+            padding: 18px 22px;
+            margin: 20px 0;
+            border-radius: 0 2px 2px 0;
+        }
+
+        .pp-highlight .pp-text {
+            margin-bottom: 0;
+            font-size: 13px;
+        }
+
+        /* Placeholder highlight */
+        .ph {
+            color: var(--color-accent);
+            font-style: italic;
+            opacity: 0.75;
+        }
+
+        /* ---- Footer ---- */
+        .pp-footer {
+            border-top: 1px solid var(--color-ghost);
+            padding: 28px 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .pp-footer-copy {
+            font-size: 9px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--color-text-sub);
+        }
+
+        .pp-footer-link {
+            font-size: 9px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--color-text-sub);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .pp-footer-link:hover { color: var(--color-accent); }
+
+        /* ---- Responsive ---- */
+        @media (max-width: 768px) {
+            .pp-header { padding: 20px 24px; }
+            .pp-wrap   { padding: 52px 24px 80px; }
+            .pp-footer { padding: 24px; flex-direction: column; align-items: flex-start; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="pp-header">
+        <a class="pp-logo" href="../index.html" aria-label="Voltar à página inicial">
+            <b>A<span style="color:var(--color-accent)">&</span>S</b> Advocacia
+        </a>
+        <a class="pp-back" href="../index.html">Voltar ao site</a>
+    </header>
+
+    <main class="pp-wrap">
+
+        <p class="pp-eyebrow">Privacidade &amp; Proteção de Dados · LGPD</p>
+        <h1 class="pp-title">Política de<br>Privacidade</h1>
+        <p class="pp-updated">Última atualização: <span class="ph">[DD/MM/AAAA]</span></p>
+
+        <!-- 1 -->
+        <section class="pp-section">
+            <h2 class="pp-section-title"><span class="pp-section-num">01.</span>Identificação do Controlador</h2>
+            <p class="pp-text">
+                <span class="ph">[NOME COMPLETO DO ESCRITÓRIO]</span>, inscrito no CNPJ sob o nº <span class="ph">[XX.XXX.XXX/XXXX-XX]</span>, registrado na OAB/<span class="ph">[UF]</span> sob o nº <span class="ph">[XXXXX]</span>, com sede em <span class="ph">[ENDEREÇO COMPLETO, CIDADE – UF, CEP]</span>, é o controlador responsável pelo tratamento dos dados pessoais coletados por meio deste site, nos termos da Lei nº 13.709/2018 (Lei Geral de Proteção de Dados — LGPD).
+            </p>
+        </section>
+
+        <!-- 2 -->
+        <section class="pp-section">
+            <h2 class="pp-section-title"><span class="pp-section-num">02.</span>Dados Coletados</h2>
+            <p class="pp-text">Coletamos apenas os dados estritamente necessários para as finalidades descritas nesta política:</p>
+            <ul class="pp-list">
+                <li><strong>Formulário de contato:</strong> nome completo, endereço de e-mail, número de telefone, área jurídica de interesse e mensagem enviada.</li>
+                <li><strong>Dados de navegação:</strong> endereço IP, tipo de navegador, páginas visitadas e tempo de permanência — coletados de forma anonimizada para fins de segurança e melhoria do site.</li>
+                <li><strong>Cookies técnicos:</strong> necessários para o funcionamento correto das funcionalidades do site. Não utilizamos cookies de rastreamento publicitário.</li>
+            </ul>
+        </section>
+
+        <!-- 3 -->
+        <section class="pp-section">
+            <h2 class="pp-section-title"><span class="pp-section-num">03.</span>Finalidade do Tratamento</h2>
+            <p class="pp-text">Seus dados pessoais são utilizados exclusivamente para:</p>
+            <ul class="pp-list">
+                <li>Responder às suas solicitações de contato e agendamento de consultas jurídicas;</li>
+                <li>Prestar os serviços advocatícios contratados, quando aplicável;</li>
+                <li>Cumprir obrigações legais e regulatórias impostas ao escritório;</li>
+                <li>Garantir a segurança e o funcionamento adequado deste site.</li>
+            </ul>
+            <div class="pp-highlight">
+                <p class="pp-text">Não utilizamos seus dados para fins de marketing sem seu consentimento prévio e expresso.</p>
+            </div>
+        </section>
+
+        <!-- 4 -->
+        <section class="pp-section">
+            <h2 class="pp-section-title"><span class="pp-section-num">04.</span>Base Legal (LGPD)</h2>
+            <p class="pp-text">O tratamento dos seus dados é fundamentado nas seguintes hipóteses legais previstas no art. 7º da Lei nº 13.709/2018:</p>
+            <ul class="pp-list">
+                <li><strong>Consentimento (inciso I):</strong> para o envio de comunicações e informações sobre serviços, quando solicitado pelo titular;</li>
+                <li><strong>Execução de contrato (inciso V):</strong> para a prestação dos serviços jurídicos contratados;</li>
+                <li><strong>Cumprimento de obrigação legal (inciso II):</strong> para atendimento de determinações legais, judiciais ou regulatórias;</li>
+                <li><strong>Legítimo interesse (inciso IX):</strong> para responder às suas solicitações de contato e manter a segurança do site.</li>
+            </ul>
+        </section>
+
+        <!-- 5 -->
+        <section class="pp-section">
+            <h2 class="pp-section-title"><span class="pp-section-num">05.</span>Armazenamento e Segurança</h2>
+            <p class="pp-text">
+                Seus dados são armazenados em servidores com proteção adequada e mantidos pelo tempo necessário para cumprir as finalidades descritas nesta política, respeitados os prazos de prescrição legal aplicáveis à atividade advocatícia.
+            </p>
+            <p class="pp-text">
+                Adotamos medidas técnicas e organizacionais apropriadas para proteger seus dados contra acesso não autorizado, destruição, perda, alteração ou divulgação indevida.
+            </p>
+        </section>
+
+        <!-- 6 -->
+        <section class="pp-section">
+            <h2 class="pp-section-title"><span class="pp-section-num">06.</span>Compartilhamento de Dados</h2>
+            <p class="pp-text">
+                Não comercializamos, alugamos nem compartilhamos seus dados pessoais com terceiros para fins comerciais.
+            </p>
+            <p class="pp-text">Seus dados poderão ser compartilhados somente nos seguintes casos:</p>
+            <ul class="pp-list">
+                <li>Por determinação legal, judicial ou regulatória;</li>
+                <li>Para cumprimento de obrigações decorrentes de mandato judicial ou contrato de prestação de serviços;</li>
+                <li>Com fornecedores de tecnologia estritamente necessários ao funcionamento do site, sob cláusulas de confidencialidade.</li>
+            </ul>
+        </section>
+
+        <!-- 7 -->
+        <section class="pp-section">
+            <h2 class="pp-section-title"><span class="pp-section-num">07.</span>Cookies</h2>
+            <p class="pp-text">Este site utiliza exclusivamente cookies técnicos, necessários para o funcionamento correto das animações e recursos interativos. Esses cookies não coletam dados pessoais identificáveis e não são utilizados para fins de publicidade ou rastreamento comportamental.</p>
+            <p class="pp-text">Você pode desativar os cookies nas configurações do seu navegador, mas isso poderá afetar o funcionamento de algumas funcionalidades do site.</p>
+        </section>
+
+        <!-- 8 -->
+        <section class="pp-section">
+            <h2 class="pp-section-title"><span class="pp-section-num">08.</span>Seus Direitos como Titular</h2>
+            <p class="pp-text">Nos termos da LGPD, você tem o direito de, a qualquer momento:</p>
+            <ul class="pp-list">
+                <li>Confirmar a existência de tratamento dos seus dados;</li>
+                <li>Acessar os dados que mantemos sobre você;</li>
+                <li>Corrigir dados incompletos, inexatos ou desatualizados;</li>
+                <li>Solicitar a anonimização, bloqueio ou eliminação de dados desnecessários ou excessivos;</li>
+                <li>Solicitar a portabilidade dos seus dados a outro fornecedor de serviço;</li>
+                <li>Solicitar a eliminação dos dados tratados com base no seu consentimento;</li>
+                <li>Obter informações sobre as entidades com as quais compartilhamos seus dados;</li>
+                <li>Revogar o consentimento a qualquer momento, sem prejuízo à licitude dos tratamentos anteriores.</li>
+            </ul>
+            <div class="pp-highlight">
+                <p class="pp-text">Para exercer qualquer um desses direitos, entre em contato pelo e-mail <span class="ph">[E-MAIL DE CONTATO]</span>. Responderemos em até 15 dias úteis.</p>
+            </div>
+        </section>
+
+        <!-- 9 -->
+        <section class="pp-section">
+            <h2 class="pp-section-title"><span class="pp-section-num">09.</span>Encarregado de Dados (DPO)</h2>
+            <p class="pp-text">
+                O encarregado pelo tratamento de dados pessoais (Data Protection Officer) deste escritório é:
+            </p>
+            <ul class="pp-list">
+                <li><strong>Nome:</strong> <span class="ph">[NOME DO ENCARREGADO]</span></li>
+                <li><strong>E-mail:</strong> <span class="ph">[EMAIL-DPO@DOMINIO.COM.BR]</span></li>
+            </ul>
+        </section>
+
+        <!-- 10 -->
+        <section class="pp-section">
+            <h2 class="pp-section-title"><span class="pp-section-num">10.</span>Alterações desta Política</h2>
+            <p class="pp-text">
+                Esta política pode ser atualizada a qualquer momento para refletir alterações legais, regulatórias ou em nossas práticas. A data da última atualização estará sempre indicada no topo desta página. Recomendamos consulta periódica.
+            </p>
+        </section>
+
+        <!-- 11 -->
+        <section class="pp-section">
+            <h2 class="pp-section-title"><span class="pp-section-num">11.</span>Contato e Reclamações</h2>
+            <p class="pp-text">
+                Para dúvidas, solicitações ou reclamações relacionadas ao tratamento dos seus dados, entre em contato:
+            </p>
+            <ul class="pp-list">
+                <li><strong>E-mail:</strong> <span class="ph">[CONTATO@DOMINIO.COM.BR]</span></li>
+                <li><strong>Telefone:</strong> <span class="ph">(XX) XXXX-XXXX</span></li>
+                <li><strong>Endereço:</strong> <span class="ph">[ENDEREÇO COMPLETO]</span></li>
+            </ul>
+            <p class="pp-text" style="margin-top:14px;">
+                Você também tem o direito de apresentar reclamação à Autoridade Nacional de Proteção de Dados (ANPD) pelo site <strong>gov.br/anpd</strong>.
+            </p>
+        </section>
+
+    </main>
+
+    <footer class="pp-footer">
+        <span class="pp-footer-copy">&copy; 2025 <span class="ph">[NOME DO ESCRITÓRIO]</span>. Todos os direitos reservados.</span>
+        <a class="pp-footer-link" href="../index.html">← Voltar ao site</a>
+    </footer>
+
+</body>
+</html>

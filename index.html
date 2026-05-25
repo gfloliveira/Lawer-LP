@@ -2699,6 +2699,73 @@
         @media (max-width: 768px) {
             #whatsapp-btn { bottom: 24px; right: 20px; width: 52px; height: 52px; }
         }
+
+        /* ---- COOKIE BANNER ---- */
+        #cookie-banner {
+            position: fixed;
+            bottom: 36px;
+            left: 36px;
+            z-index: 750;
+            max-width: 380px;
+            padding: 24px 28px;
+            background: rgba(7, 14, 28, 0.84);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(212, 175, 55, 0.18);
+            border-radius: 4px;
+            opacity: 0;
+            transform: translateY(16px);
+            pointer-events: none;
+        }
+        #cookie-banner.is-visible {
+            pointer-events: auto;
+        }
+        .cookie-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 400;
+            line-height: 1.65;
+            color: rgba(240, 234, 214, 0.75);
+            margin: 0 0 18px;
+        }
+        .cookie-text a {
+            color: var(--color-accent);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+        .cookie-text a:hover { color: #fff; }
+        .cookie-actions {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+        .cookie-accept {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--color-bg);
+            background: var(--color-accent);
+            border: none;
+            padding: 10px 22px;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: background 0.25s, color 0.25s;
+            flex-shrink: 0;
+        }
+        .cookie-accept:hover {
+            background: #fff;
+            color: var(--color-bg);
+        }
+        @media (max-width: 480px) {
+            #cookie-banner {
+                left: 16px;
+                right: 16px;
+                bottom: 20px;
+                max-width: none;
+            }
+        }
     </style>
 </head>
 
@@ -3540,6 +3607,21 @@
 </footer><!-- /#footer -->
 
 <!-- ==========================================================
+     COOKIE BANNER
+     ========================================================== -->
+<div id="cookie-banner" role="dialog" aria-live="polite" aria-label="Aviso de cookies">
+    <p class="cookie-text">
+        Utilizamos cookies essenciais para o funcionamento do site.
+        Ao continuar navegando, você concorda com nossa
+        <a href="privacidade/privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a>.
+    </p>
+    <div class="cookie-actions">
+        <button class="cookie-accept" id="cookie-accept-btn" type="button">Aceitar</button>
+        <a href="privacidade/privacidade.html" target="_blank" rel="noopener" class="cookie-text" style="margin:0; font-size:0.72rem; text-decoration:underline; text-underline-offset:2px;">Saiba mais</a>
+    </div>
+</div>
+
+<!-- ==========================================================
      SCRIPTS
      ========================================================== -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -4358,6 +4440,34 @@
     document.addEventListener('keydown', e => {
         if (e.key === 'Escape' && mobileOpen) closeNav();
     });
+
+    /* ============================================================
+       COOKIE BANNER — LGPD
+       ============================================================ */
+    (function initCookieBanner() {
+        if (localStorage.getItem('as_cookies') === 'ok') return;
+
+        const banner = document.getElementById('cookie-banner');
+        const btn    = document.getElementById('cookie-accept-btn');
+        if (!banner || !btn) return;
+
+        /* Aparece 1.6s após o loader sair */
+        gsap.delayedCall(1.6, () => {
+            banner.classList.add('is-visible');
+            gsap.to(banner, { opacity: 1, y: 0, duration: 0.55, ease: 'power3.out' });
+        });
+
+        btn.addEventListener('click', () => {
+            localStorage.setItem('as_cookies', 'ok');
+            gsap.to(banner, {
+                opacity: 0, y: 12, duration: 0.38, ease: 'power2.in',
+                onComplete: () => {
+                    banner.classList.remove('is-visible');
+                    gsap.set(banner, { display: 'none' });
+                }
+            });
+        });
+    })();
 </script>
 
 <!-- WhatsApp flutuante -->
