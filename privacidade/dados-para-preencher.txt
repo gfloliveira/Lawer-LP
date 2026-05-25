@@ -1,0 +1,97 @@
+==============================================================
+  DADOS PARA PREENCHER — POLÍTICA DE PRIVACIDADE
+  Arquivo: privacidade/privacidade.html
+==============================================================
+
+Olá! Abaixo estão todas as informações que precisam ser
+preenchidas na Política de Privacidade do site.
+Basta preencher cada campo e me enviar de volta.
+
+--------------------------------------------------------------
+  1. IDENTIFICAÇÃO DO ESCRITÓRIO
+--------------------------------------------------------------
+
+  Nome completo do escritório:
+  _______________________________________________
+
+  CNPJ (formato XX.XXX.XXX/XXXX-XX):
+  _______________________________________________
+
+  Estado da OAB (ex: SP, RJ, MG):
+  _______________________________________________
+
+  Número de inscrição na OAB (ex: 123.456):
+  _______________________________________________
+
+  Endereço completo da sede
+  (Rua, número, complemento, Cidade – UF, CEP):
+  _______________________________________________
+  _______________________________________________
+
+--------------------------------------------------------------
+  2. DATA DA POLÍTICA
+--------------------------------------------------------------
+
+  Data de publicação/atualização (formato DD/MM/AAAA):
+  _______________________________________________
+
+--------------------------------------------------------------
+  3. E-MAIL PARA SOLICITAÇÕES LGPD
+     (usado na seção "Seus Direitos como Titular")
+     Canal pelo qual o cliente pode pedir acesso,
+     correção ou exclusão dos dados dele.
+--------------------------------------------------------------
+
+  E-mail para solicitações LGPD:
+  _______________________________________________
+
+--------------------------------------------------------------
+  4. ENCARREGADO DE DADOS — DPO
+     (seção 09 da política)
+     Pode ser o próprio sócio responsável pelo escritório.
+     Para escritórios de pequeno/médio porte, não é
+     obrigatório nomear um DPO externo — basta indicar
+     o responsável interno.
+--------------------------------------------------------------
+
+  Nome do encarregado (DPO):
+  _______________________________________________
+
+  E-mail do encarregado (DPO):
+  _______________________________________________
+
+--------------------------------------------------------------
+  5. CONTATO PÚBLICO (seção 11)
+     Aparece na seção "Contato e Reclamações",
+     acessível a qualquer visitante do site.
+--------------------------------------------------------------
+
+  E-mail de contato público:
+  _______________________________________________
+
+  Telefone de contato (formato (XX) XXXX-XXXX):
+  _______________________________________________
+
+  Endereço completo para correspondência:
+  _______________________________________________
+  _______________________________________________
+
+--------------------------------------------------------------
+  OBSERVAÇÕES
+--------------------------------------------------------------
+
+  - Os campos de e-mail dos itens 3, 4 e 5 podem ser
+    o mesmo endereço, caso o escritório prefira centralizar.
+
+  - O campo "Endereço" dos itens 1 e 5 geralmente é igual;
+    preencha separadamente só se forem diferentes.
+
+  - Após o preenchimento, os dados serão inseridos no site
+    e os marcadores em dourado ([PLACEHOLDER]) desaparecerão.
+
+  - Recomenda-se revisar o conteúdo com um advogado da área
+    antes da publicação definitiva, em especial as bases
+    legais do Art. 7º da LGPD (seção 04) caso o escritório
+    realize tratamentos de dados além do formulário de contato.
+
+==============================================================
