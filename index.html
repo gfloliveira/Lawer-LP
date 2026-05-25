@@ -2185,8 +2185,8 @@
         /* Progress bar — linha dourada de avanço automático */
         .depo-progress {
             width: 100%;
-            height: 1px;
-            background: rgba(212, 175, 55, 0.10);
+            height: 2px;
+            background: rgba(212, 175, 55, 0.12);
             margin-top: 24px;
             overflow: hidden;
         }
@@ -2195,7 +2195,6 @@
             height: 100%;
             width: 0%;
             background: var(--color-accent);
-            opacity: 0.55;
         }
 
         /* ---- Depoimentos — Tablet ---- */
@@ -4183,11 +4182,20 @@
             scrollTrigger: { trigger: '.depo-title', start: 'top 82%' }
         });
 
-        /* Stage reveal — auto-advance arranca após a entrada completar */
+        /* Stage reveal */
         gsap.from('.depo-stage', {
             opacity: 0, y: 36, duration: 0.90, ease: 'power3.out',
-            onComplete: startProgress,
             scrollTrigger: { trigger: '.depo-stage', start: 'top 84%' }
+        });
+
+        /* Auto-advance arranca após a animação de entrada (0.90s) completar.
+           ScrollTrigger.create com once:true + delayedCall é mais confiável
+           do que onComplete em tweens gerenciados por ScrollTrigger. */
+        ScrollTrigger.create({
+            trigger: '.depo-stage',
+            start: 'top 84%',
+            once: true,
+            onEnter: () => gsap.delayedCall(0.92, startProgress)
         });
 
         gsap.from('.depo-controls', {
