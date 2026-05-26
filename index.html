@@ -2721,6 +2721,91 @@
             #whatsapp-btn { bottom: 24px; right: 20px; width: 52px; height: 52px; }
         }
 
+        /* ================================================================
+           IPAD — OVERRIDES
+           ================================================================ */
+
+        /* iPad touch — landscape (1024–1199 px, hover: none)
+           Corrige bug: CSS mantém flex nowrap mas JS não ativa pin scroll
+           em touch → cards ficam ocultos por overflow: hidden              */
+        @media (min-width: 1024px) and (max-width: 1199px) and (hover: none) {
+            .pub-track-zone { height: auto; overflow: visible; }
+            .pub-track      { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; padding: 40px 48px 72px; width: auto; height: auto; align-items: start; }
+            .pub-card       { flex: none; width: auto; height: auto; min-height: 400px; }
+            .pub-progress   { display: none; }
+        }
+
+        /* iPad mini — portrait (720–768 px)
+           Promove ao layout tablet: nav completo, seções 2 colunas, padding generoso.
+           Estes estilos vêm após todos os blocos max-width: 768px e os sobrescrevem. */
+        @media (min-width: 720px) and (max-width: 768px) {
+
+            /* Nav — exibe links, oculta hamburguer */
+            #nav             { padding: 28px 48px; }
+            #nav.is-scrolled { padding-top: 20px; padding-bottom: 20px; }
+            .nav-links       { display: flex; gap: 26px; }
+            .nav-tel         { display: block; }
+            .nav-firm        { display: none; }
+            .nav-toggle      { display: none; }
+
+            /* Hero — mantém foto full-screen; aumenta padding e alinha ações */
+            .hero-inner   { padding: 110px 48px 0; }
+            .hero-sub     { max-width: 72%; }
+            .hero-actions { flex-direction: row; }
+
+            /* Firma — restaura grid 2 colunas */
+            #firma            { overflow: clip; }
+            .s-num            { display: block; }
+            .firma-grid       { grid-template-columns: 44% 1fr; }
+            .firma-photo-col  { position: sticky; top: 0; align-self: start; height: 100vh; max-height: none; overflow: hidden; }
+            .firma-fig img    { transform: scale(1.12); object-position: 42% 0%; }
+            .firma-text-col   { padding: 80px 48px 80px 52px; border-top: none; border-left: 1px solid var(--color-primary-ghost); }
+            .firma-title      { font-size: clamp(28px, 3.8vw, 46px); }
+            .firma-p          { font-size: 12px; max-width: 100%; }
+
+            /* Áreas */
+            #areas       { overflow: clip; }
+            .areas-intro { padding: 80px 48px 64px; grid-template-columns: 52% 1fr; gap: 0 48px; }
+            .areas-title { font-size: clamp(28px, 3.8vw, 46px); }
+            .areas-sub   { max-width: 100%; }
+            .area-inner  { padding: 26px 48px; gap: 20px; }
+            .area-name   { font-size: clamp(19px, 2.7vw, 32px); }
+            .area-tag    { display: block; }
+            .area-arrow  { width: 40px; height: 40px; }
+            .area-desc   { padding: 0 48px 24px 90px; max-width: 100%; }
+
+            /* Publicações */
+            .pub-header     { padding: 80px 48px 56px; grid-template-columns: 52% 1fr; gap: 0 48px; align-items: end; }
+            .pub-title      { font-size: clamp(28px, 3.8vw, 46px); }
+            .pub-sub        { max-width: 100%; }
+            .pub-track-zone { height: auto; overflow: visible; }
+            .pub-track      { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; padding: 32px 48px 64px; width: auto; height: auto; align-items: start; }
+            .pub-card       { flex: none; width: auto; height: auto; min-height: 380px; }
+            .pub-progress   { display: none; }
+
+            /* Depoimentos */
+            #depoimentos    { overflow: clip; }
+            .depo-inner     { padding: 80px 48px 88px; }
+            .depo-title     { font-size: clamp(28px, 3.8vw, 46px); }
+            .depo-counter   { display: flex; }
+
+            /* Contato — coluna única (form ganha largura total) */
+            #contato       { overflow: clip; }
+            .contato-inner { padding: 80px 48px 80px; }
+            .contato-title { font-size: clamp(28px, 3.8vw, 46px); }
+
+            /* Footer */
+            .footer-main   { padding: 48px 48px 40px; gap: 0 32px; text-align: left; }
+            .footer-contact { align-items: flex-end; }
+            .footer-bottom { padding: 20px 48px; flex-direction: row; align-items: center; text-align: left; }
+        }
+
+        /* Tablet estreito (769–960 px): form de contato em coluna única
+           para evitar campos de input demasiado apertados lado a lado    */
+        @media (min-width: 769px) and (max-width: 960px) {
+            .form-row { grid-template-columns: 1fr; }
+        }
+
         /* ---- SCROLL PROGRESS ---- */
         #nav-progress {
             position: absolute;
